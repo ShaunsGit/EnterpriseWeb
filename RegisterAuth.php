@@ -43,13 +43,13 @@ if ($valid == ""){
             if (mysqli_query($link, $query))
             {   // Uploads the data to the Database.
                 
-                header("location: Login.php");
+                header("location: Index.html");
                 echo "<br />Data added";
             }
         } else {
             echo "<br />Password was not the same";
         }
-    }
+    }s
     else{
         echo "<br />That Email is already taken";
     }
