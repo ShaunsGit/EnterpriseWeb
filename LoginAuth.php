@@ -1,4 +1,42 @@
 
+<a href="mainpic.jpg">
+    <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic.jpg">
+</a>
+
+<html lang="en-GB">
+
+<head>
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link href="main.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <ul>
+        <li>
+            <a href="Home.php">Home</a></li>
+        <li style="float:right">
+            <a href="Register.php">Register</a></li>
+        <li style="float:right">
+            <a href="Login.html">Sign In</a></li>
+        <li>
+            <li>
+                <a href="">My Ideas</a></li>
+            <li>
+                <a href="">Edit Ideas</a></li>
+            <li>
+                <a href="IdeaSubmission.html">Add Ideas</a></li>
+            <li>
+                <a href="">Search Idea</a></li>
+    </ul>
+</body>
+
+</html>
+
 
 <?php
 
@@ -43,8 +81,13 @@ if(mysqli_num_rows($result) > 0)
                 }
 }else{
     echo 'Email does not exsist.
+
+     <form action="Login.html" method="post">
+            <button type="submit" name="backToLogin" id="backToLogin" class="buttonRed">Back to Login</button>
+
      <form action="Index.html" method="post">
             <button type="submit" name="backToLogin" id="backToLogin" class="">Back to Login</button>
+
         </form>
     ';
     
