@@ -1,3 +1,4 @@
+
 <a href="mainpic.jpg">
     <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic.jpg">
 </a>
@@ -35,6 +36,7 @@
 </body>
 
 </html>
+
 
 <?php
 
@@ -79,8 +81,13 @@ if(mysqli_num_rows($result) > 0)
                 }
 }else{
     echo 'Email does not exsist.
+
      <form action="Login.html" method="post">
             <button type="submit" name="backToLogin" id="backToLogin" class="buttonRed">Back to Login</button>
+
+     <form action="Index.html" method="post">
+            <button type="submit" name="backToLogin" id="backToLogin" class="">Back to Login</button>
+
         </form>
     ';
     
