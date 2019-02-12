@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--- https://stuweb.cms.gre.ac.uk/~sm2418r/Enterprise/IdeaSubmission.html  -->
+<html lang="en-GB">
+    <a href="mainpic.jpg">
+    <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic.jpg">
+</a>
+
+<head>
+    <title>Untitled Document</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link href="main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <ul>
+        <li>
+            <a href="Home.php">Home</a></li>
+        <li style="float:right">
+            <a href="Register.php">Register</a></li>
+        <li style="float:right">
+            <a href="Login.html">Sign In</a></li>
+        <li>
+            <li>
+                <a href="">My Ideas</a></li>
+            <li>
+                <a href="">Edit Ideas</a></li>
+            <li>
+                <a href="IdeaSubmission.html">Add Ideas</a></li>
+            <li>
+                <a href="">Search Idea</a></li>
+    </ul>
+    <h1>Add a Idea</h1>
+    <form action="Home.php" method="post">
+        <table width="495" height="232" border="0">
+            <tr>
+                <td>Title: </td>
+                <td><input size="25" type="text" name="title" /></td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td><textarea rows="6" cols="60" type="text" name="description"> Insert your Idea description here
+                    </textarea></td>
+            </tr>
+            <tr>
+                <td>Department: </td>
+                <td><input size="25" type="text" name="department" value="<?php echo $_SESSION['department'] ?>" readonly/></td>
+            </tr>
+        </table>
+
+        <button class="button" type="submit"> Submit Post</button>
+    </form>
+</body>
+</html>
