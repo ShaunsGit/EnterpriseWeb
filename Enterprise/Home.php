@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php  session_start(); 
 require 'mysql.php';
-ini_set('display_errors',1);
-    error_reporting(E_ALL);
+//ini_set('display_errors',1);
+//    error_reporting(E_ALL);
 $link = mysqli_connect($host, $user, $passwd, $dbName) or 
                 die('Failed to connect to MySQL server. ' . mysqli_connect_error() .'<br />');
 
@@ -129,7 +129,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         <div class="row">
             <div class="col-sm-4" >
                 <div class="card" style="width: 15rem;height:15rem; border-style:solid; border-width:1px; right:13px">
-                    <div class="card-body">
+                    <a href="Post?PostID='.$row['PostID'].'"><div class="card-body">
                         <h5 class="card-title">'.$row["Title"].'</h5>
                         <h6 class="card-subtitle mb-2 text-muted">'. $row["DepartmentID"] .'</h6>
 
@@ -142,7 +142,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                                 <span class="glyphicon glyphicon-thumbs-up"></span> Disike '.$row["Down_Vote"].'
                             </a>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
             </div>';
             }
@@ -154,7 +154,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             
                 echo ' <div class="col-sm-4" >
                 <div class="card" style="width: 15rem;height:15rem; border-style:solid; border-     width:1px; right:13px">
-                    <div class="card-body">
+                   <a href="Post?PostID='.$row['PostID'].'"><div class="card-body">
                     <h5 class="card-title">'.$row["Title"].'</h5>
                 <h6 class="card-subtitle mb-2 text-muted">'. $row["DepartmentID"] .'</h6>
 
@@ -168,7 +168,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                                 <span class="glyphicon glyphicon-thumbs-up"></span> Disike '.$row["Down_Vote"].'
                             </a>
                         </div>
-                    </div>
+                    </div></a>
                    </div>
         </div>
         </div></div>';
@@ -181,7 +181,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             </div>
             <div class="col-sm-4" >
                 <div class="card" style="width: 15rem;height:15rem; border-style:solid; border-width:1px; right:13px">
-                    <div class="card-body">
+                  <a href="Post?PostID='.$row['PostID'].'"> <div class="card-body">
                           <h5 class="card-title">'.$row["Title"].'</h5>
                            <h6 class="card-subtitle mb-2 text-muted">'. $row["DepartmentID"] .'</h6>
 
@@ -194,7 +194,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                                 <span class="glyphicon glyphicon-thumbs-up"></span> Disike '.$row["Down_Vote"].'
                             </a>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
             </div>
             <div class="col-sm-4" >
@@ -224,6 +224,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
             </div>
         </ul>
+    
+
 </body>
 
 </html>
