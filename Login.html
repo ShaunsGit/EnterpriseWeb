@@ -1,0 +1,55 @@
+<!--https://stuweb.cms.gre.ac.uk/~sm2418r/Enterprise/Login.html -->
+<!DOCTYPE html>
+<html lang="en-GB">
+
+   
+
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link href="main.css" rel="stylesheet" />
+</head>
+
+<body>
+ <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
+    <ul>
+        <li>
+            <a href="Home.php">Home</a></li>
+        <li style="float:right">
+            <a href="Register.php">Register</a></li>
+        <li style="float:right">
+            <a href="Login.html">Sign In</a></li>
+       
+            <li>
+                <a href="">Search Idea</a></li>
+    </ul>
+
+    <form action="LoginAuth.php" method="post">
+        <table width="495" height="232" border="0">
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="text" class="" placeholder="Example@example.co.uk" name="email" id="username" size="25"></td>
+            </tr>
+
+            <tr>
+                <td><label for="pwd">Password:</label></td>
+                <td><input type="password" class="" name="password" placeholder="(Case Sensitive)" id="pwd" size="25"></td>
+            </tr>
+            <tr>
+                <td><button class="button" type="submit">Log In</button></td>
+            </tr>
+        </table>
+    </form>
+    <form action="Register.php">
+        <tr>
+            <td><input class="buttonRed" type="submit" value="Register" /></td>
+        </tr>
+    </form>
+
+</body>
+
+</html>
