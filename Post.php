@@ -35,8 +35,11 @@ if(!$_SESSION['loggedIn'] == "true"){
         <style>
             .card-text {
                 font-size: 18px;
-                color: black;
+
+                color: white;
                 max-height: 20px;
+                text-align: left;
+
             }
             
             .card {
@@ -44,14 +47,22 @@ if(!$_SESSION['loggedIn'] == "true"){
                 display: block;
                 margin: auto;
                 border-style: solid;
-                border-width: 1px;
-                /*            background-color: #eaeaea;*/
+
+                width: 85%;
+                border-width: 2px;
+                background-color: #093145;
+
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 padding-bottom: 5px;
                 margin-top: 5px;
             }
             
-            .card-body {}
+
+            .card-body {
+                color: #EFD469;
+
+            }
+
             
             .buttons {
                 bottom: 0;
@@ -295,31 +306,37 @@ if(!$_SESSION['loggedIn'] == "true"){
             <div class="container">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo $title; ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?php echo $department; ?></h6>
-                        <div class="card-text">
 
-                            <div style="text-slign:left"><u>Category</u></div>
-                            <div>
+                        <h5 class="card-title" style="color: #EFD469"><?php echo $title; ?></h5>
+                        <h6  class="card-subtitle" style="color: white"><?php echo $department; ?></h6>
+                        <p><br></p>
+                        <div>
+
+                            <div style="text-align: center"><u>Category</u></div>
+                            <div class="card-text" style="text-align: center">
                                 <?php  echo $category; ?>
                             </div>
-
+                            
+                            <p><br></p>
+                            
                             <div style="text-slign:left"><u>Description</u></div>
-                            <div>
+                            <div class="card-text">
                                 <?php  echo $desc; ?>
                             </div>
 
-
+                            <p><br></p>
+                            <p><br></p>
 
                             <div style="text-slign:left"><u>Date</u></div>
-                            <div>
+                            <div class="card-text">
                                 <?php  echo $date; ?>
                             </div>
 
+                            <!--<p><br></p>-->
 
+                            <div style="text-align:right"><u>Name</u></div>
+                            <div class="card-text" style="text-align:right">
 
-                            <div style="text-slign:left"><u>name</u></div>
-                            <div>
                                 <?php  
                                 if(!(int)$anon == 1){
                                 echo $name;
@@ -327,6 +344,9 @@ if(!$_SESSION['loggedIn'] == "true"){
                                     echo "Anon";
                                 } ?>
                             </div>
+
+
+                            <p><br></p>
 
 
                             <div class="buttons" style="color:white">
@@ -343,17 +363,18 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                     </div>
                 </div>
-
-
             </div>
-            </div>
+        
             <hr />
-            <div class="container">
-
-                <h5 style="text-align:left">Comments</h5>
-                <textarea name="message" id="comment" rows="4">Insert commment.</textarea>
-                <div> <a class="btn btn-primary" style="float:right" onclick="Comment()" role="button">Submit Comment</a>
+                <h5 style="text-align:left">Insert your Comments</h5>
+                <textarea name="message" id="comment" rows="4">Insert comment.</textarea>
+                <div> <button class="button" style="float:right" onclick="Comment()" role="button">Submit Comment</button>
                     <br /><br />
+                    
+                    
+                    <h5 style="text-align:left">All Comments</h5>
+                    
+
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><u>Commenter Name</u> - Department</p>
@@ -366,7 +387,6 @@ if(!$_SESSION['loggedIn'] == "true"){
                 </div>
 
     </body>
-
 
 
 
