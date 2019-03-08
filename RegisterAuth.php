@@ -7,53 +7,57 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-//validate all inputs (needed)
-//--must be unique email.
-//--Password must match
-//-- none of the fields can be empty
-//then upload to the database.
 
 
 
 extract($_POST);
-/*Variables: 
-    $email
-    $confirmPass
-    $pass
-    $department
-    $name
-*/  
-$valid;
-if ( !preg_match('/^([\w\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/', $email) )
-{
-    $valid .= "Please Enter a Valid Email <br />";
-}
-if ( preg_match('/[^a-zA-Z]|^$/', $name) )
-{
-    $valid .= "Please Enter a Valid Name (First Name Only). <br />";
-}
-if ($valid == ""){
-    if (isEmailAvailable($email, $link)){
-        // Call the isEmailAvailable functions to see if email is available.
-        if($confirmPass == $pass){
-            // Check if both password match
-            $hash = password_hash($pass, PASSWORD_DEFAULT); // Hashes the password.
-            $query = "INSERT INTO Staff (DepartmentID, RoleID, Email, Name, Password, Date_Joined, Last_Logged, Post_Count, Comment_Count) Values('$department', 1, '$email', '$name', '$hash','" . date("Y/m/d") . "' ,'" . date("Y/m/d") . "', 0, 0)";
-    
-            if (mysqli_query($link, $query))
-            {   // Uploads the data to the Database.
+
+    $valid;
+    if( !preg_match('/^([\w\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})$/',         $email))
+    {
+        $valid .= "Please Enter a Valid Email <br />";
+    }
+    if ( preg_match('/[^a-zA-Z]|^$/', $name) )
+    {
+        $valid .= "Please Enter a Valid Name (First Name Only). <br />";
+    }
+    if ($valid == ""){
+        if (isEmailAvailable($email, $link)){
+            // Call the isEmailAvailable functions to see if email is available.
+            if($confirmPass == $pass){
+
+                $hash = password_hash($pass, PASSWORD_DEFAULT); //hashes the password
                 
-                header("location: Index.html");
-                echo "<br />Data added";
-            }
+                $ps =$link->prepare("INSERT INTO Staff (DepartmentID, RoleID, Email, Name, Password, Date_Joined, Last_Logged, Post_Count, Comment_Count, Active) Values(?,?,?,?,?,?,?,?,?,?)");
+                
+                // Binding/ setting the parameters for the query
+                $ps-> bind_param("iisssssiii", $DepartmentID, $RoleID, $Email, $Name, $Password, $Date_Joined, $Last_Logged, $Post_Count, $Comment_Count, $Active);
+            
+                //assiging the variables with the users inputs.
+                $DepartmentID = $department;
+                $RoleID = 1;
+                $Email = $email;
+                $Name = $name;
+                $Password = $hash;
+                $Date_Joined = date("Y/m/d");
+                $Last_Logged = date("Y/m/d");
+                $Post_Count = 0;
+                $Comment_Count = 0;
+                $Active = true;
+                $result = $ps->execute();
+                
+             if($result){
+                 header("location: Login.html");
+             }
+
+           
         } else {
             echo "<br />Password was not the same";
         }
-    }s
-    else{
-        echo "<br />That Email is already taken";
-    }
-    }else{
+    } else{
+    echo "<br />That Email is already taken";
+}
+}else{
     echo $valid;
 }
 
@@ -72,6 +76,7 @@ if ($valid == ""){
             return $n;
         }
         
-}
+    }
 
 ?>
+                

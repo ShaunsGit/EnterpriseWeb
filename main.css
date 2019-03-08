@@ -100,6 +100,8 @@ samp {
     display: block;
     margin: 0em auto;
     max-width: 100%;
+    padding: 0 0 0 0;
+   
 }
 
 @keyframes colorize {
@@ -258,3 +260,6 @@ li.dropdown {
   from {opacity: .4} 
   to {opacity: 1}
 }
+
+
+

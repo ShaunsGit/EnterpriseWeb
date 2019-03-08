@@ -33,7 +33,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <style>
         .card-text {
             font-size: 14px;
+
             color: white;
+
             max-height: 20px;
         }
         
@@ -43,6 +45,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             border-style: solid;
             border-width: 1px;
             right: 13px;
+
             background-color: #093145;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
@@ -50,7 +53,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         .card-body {
                 color: #EFD469;
             }
-        
+
         .buttons {
             position: absolute;
             bottom: 0;
@@ -75,7 +78,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         #date {
             font-size: 12px;
             text-align: right;
+
             color: #EFD469;
+
         }
         
         .Posts {}
@@ -296,8 +301,10 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <div class="col-sm-4" >
                 <div class="card">
                     <a href="Post.php?PostID='.$row['PostID'].'"><div class="card-body">
+
                         <h5 class="card-title" style="color: #EFD469" >'.$row["Title"].'</h5>
                         <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
                         <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
                         <div class="buttons">
@@ -320,9 +327,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             //top right and end line. bottom right and end line.
                 echo ' <div class="col-sm-4" >
                 <div class="card">
+
                    <a href="Post.php?PostID='.$row['PostID'].'"><div class="card-body ">
                     <h5 class="card-title" style="color: #EFD469">'.$row["Title"].'</h5>
                 <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
 
                           <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
@@ -352,8 +361,10 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                         <div class="card">
                             <a href="Post.php?PostID='.$row['PostID'].'">
                                 <div class="card-body">
+
                                     <h5 class="card-title" style="color: #EFD469">'.$row["Title"].'</h5>
                                     <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
                                     <p class="card-text">' . substr($row["Description"], 0 , $stringLimit) . '...</p>
                                     <div class="buttons">

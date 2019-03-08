@@ -35,9 +35,11 @@ if(!$_SESSION['loggedIn'] == "true"){
         <style>
             .card-text {
                 font-size: 18px;
+
                 color: white;
                 max-height: 20px;
                 text-align: left;
+
             }
             
             .card {
@@ -45,18 +47,22 @@ if(!$_SESSION['loggedIn'] == "true"){
                 display: block;
                 margin: auto;
                 border-style: solid;
+
                 width: 85%;
                 border-width: 2px;
                 background-color: #093145;
+
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 padding-bottom: 5px;
                 margin-top: 5px;
             }
             
+
             .card-body {
                 color: #EFD469;
 
             }
+
             
             .buttons {
                 bottom: 0;
@@ -300,6 +306,7 @@ if(!$_SESSION['loggedIn'] == "true"){
             <div class="container">
                 <div class="card">
                     <div class="card-body">
+
                         <h5 class="card-title" style="color: #EFD469"><?php echo $title; ?></h5>
                         <h6  class="card-subtitle" style="color: white"><?php echo $department; ?></h6>
                         <p><br></p>
@@ -329,6 +336,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             <div style="text-align:right"><u>Name</u></div>
                             <div class="card-text" style="text-align:right">
+
                                 <?php  
                                 if(!(int)$anon == 1){
                                 echo $name;
@@ -337,7 +345,9 @@ if(!$_SESSION['loggedIn'] == "true"){
                                 } ?>
                             </div>
 
+
                             <p><br></p>
+
 
                             <div class="buttons" style="color:white">
                                 <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "up");?> btn-sm">
@@ -350,6 +360,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -363,6 +374,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                     
                     <h5 style="text-align:left">All Comments</h5>
                     
+
                     <div class="card">
                         <div class="card-body">
                             <p class="card-title"><u>Commenter Name</u> - Department</p>
@@ -375,6 +387,8 @@ if(!$_SESSION['loggedIn'] == "true"){
                 </div>
 
     </body>
+
+
 
     </html>
     <?php 

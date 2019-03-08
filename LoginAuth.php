@@ -59,7 +59,7 @@ $email = $_POST['email'];
 $pass = $_POST['password'];
 
 
-$query = "SELECT Name, Password, Staff.DepartmentID, Staff.RoleID, Department.Department, Roles.Roles FROM Staff
+$query = "SELECT StaffID, Name, Password, Staff.DepartmentID, Staff.RoleID, Department.Department, Roles.Roles FROM Staff
 INNER JOIN Department on Staff.DepartmentID = Department.DepartmentID 
 inner join Roles on Staff.RoleID = Roles.RoleID WHERE Email = '$email'";
 $result = mysqli_query($link, $query);
@@ -68,16 +68,21 @@ if(mysqli_num_rows($result) > 0)
                 $row = mysqli_fetch_assoc($result);
                 $hash = $row['Password'];
                 $dbDepartment = $row['Department'];
+                $dbDepartmentID = $row['DepartmentID'];
                 $dbRole = $row['Roles'];
                 $name = $row['Name'];
+                $UID = $row['StaffID'];
                 if(password_verify($pass, $hash)){
                     $_SESSION["role"] = "$dbRole";
                     $_SESSION["department"] = "$dbDepartment";
-                    $_SESSION["Name"] = "$name"; 
+                    $_SESSION["Name"] = "$name";
+                    $_SESSION['UID'] = $UID;
+                    $_SESSION['loggedIn'] = true;
+                    $_SESSION['departmentID'] = $dbDepartmentID;
                     echo $dbDepartment ."    " . $dbRole;
                     header("location: Home.php");
                 }else{
-                    echo "Password Does not match.";
+                    echo "Incorrect Password";
                 }
 }else{
     echo 'Email does not exsist.
