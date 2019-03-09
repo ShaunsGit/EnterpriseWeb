@@ -33,7 +33,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <style>
         .card-text {
             font-size: 14px;
-            color: black;
+            color: white;
             max-height: 20px;
         }
         
@@ -43,8 +43,12 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             border-style: solid;
             border-width: 1px;
             right: 13px;
-            /*            background-color: #eaeaea;*/
+            background-color: #093145;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .card-body {
+            color: #EFD469;
         }
         
         .buttons {
@@ -71,12 +75,14 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         #date {
             font-size: 12px;
             text-align: right;
-            color: black;
+            color: #EFD469;
         }
         
         .Posts {}
         
-        .disabled {}
+        .disabled {
+            visibility: hidden;
+        }
 
     </style>
 
@@ -133,7 +139,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <?php } ?>
         }
 
-        function DownVote(PostId){
+        function DownVote(PostId) {
             <?php  if($_SESSION['loggedIn']){?>
 
             //checks if the user has voted on this post
@@ -230,7 +236,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <div id="Posts">
 
 
-       
+
         <?php
     //Get the page number, if there isnt one then set it to 1
     if (isset($_GET['pageno'])) {
@@ -255,7 +261,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     ON Posts.DepartmentID = Department.DepartmentID
     ORDER BY PostID DESC LIMIT $offset, $no_of_records_per_page";
     
-        
+
+
     // Execute query and store the posts
     $posts = mysqli_query($link, $query);
         
@@ -292,8 +299,10 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <div class="col-sm-4" >
                 <div class="card">
                     <a href="Post.php?PostID='.$row['PostID'].'"><div class="card-body">
-                        <h5 class="card-title">'.$row["Title"].'</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">'. $row["Department"] .'</h6>
+
+                        <h5 class="card-title" style="color: #EFD469" >'.$row["Title"].'</h5>
+                        <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
                         <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
                         <div class="buttons">
@@ -316,9 +325,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             //top right and end line. bottom right and end line.
                 echo ' <div class="col-sm-4" >
                 <div class="card">
-                   <a href="Post.php?PostID='.$row['PostID'].'"><div class="card-body">
-                    <h5 class="card-title">'.$row["Title"].'</h5>
-                <h6 class="card-subtitle mb-2 text-muted">'. $row["Department"] .'</h6>
+
+                   <a href="Post.php?PostID='.$row['PostID'].'"><div class="card-body ">
+                    <h5 class="card-title" style="color: #EFD469">'.$row["Title"].'</h5>
+                <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
 
                           <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
@@ -348,8 +359,10 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                         <div class="card">
                             <a href="Post.php?PostID='.$row['PostID'].'">
                                 <div class="card-body">
-                                    <h5 class="card-title">'.$row["Title"].'</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">'. $row["Department"] .'</h6>
+
+                                    <h5 class="card-title" style="color: #EFD469">'.$row["Title"].'</h5>
+                                    <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
+
 
                                     <p class="card-text">' . substr($row["Description"], 0 , $stringLimit) . '...</p>
                                     <div class="buttons">
@@ -376,14 +389,19 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
     <ul class="pagination" style="width:100%">
         <div id="pagButtons" class="pagButtons">
-            <li><a href="?pageno=1">First</a></li>
+            <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>"><a href="?pageno=1">First</a></li>
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno <= 1){ echo '#'; } else { echo " ?pageno=".($pageno - 1); } ?>">Prev</a>
+            </li>
+            <li>
+                <a>
+                    <?php echo $pageno."/".$total_pages ?>
+                </a>
             </li>
             <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo " ?pageno=".($pageno + 1); } ?>">Next</a>
             </li>
-            <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+            <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>"><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
         </div>
     </ul>
 
@@ -394,7 +412,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-    <?php
+<?php
     
 function CheckIfVoted($StaffId, $PostId, $link){
     $query = "SELECT * FROM Vote WHERE StaffID = $StaffId and PostID = $PostId";

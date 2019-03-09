@@ -261,5 +261,67 @@ li.dropdown {
   to {opacity: 1}
 }
 
+      .card-text {
+                font-size: 18px;
+                color: white;
+                max-height: 20px;
+                text-align: left;
+            }
+            
+            .card {
+                height: inherit;
+                display: block;
+                margin: auto;
+                border-style: solid;
+                width: 85%;
+                border-width: 2px;
+                background-color: #093145;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding-bottom: 5px;
+                margin-top: 5px;
+            }
+            
+            .card-body {
+                color: #EFD469;
+            }
+            
+            .buttons {
+                bottom: 0;
+                padding-bottom: 13px;
+                padding-top: 5px;
+            }
+            
+            .btn {
+                position: relative;
+            }
+            
+            .pagination {
+                margin-top: 20px;
+            }
+            
+            .pagButtons {
+                position: relative;
+                margin: 0 auto;
+            }
+            
+            #date {
+                font-size: 12px;
+                text-align: right;
+                color: black;
+            }
+            
+            .container {
+                padding: 0 0 0 0;
+                height: 500px;
+            }
+            
+            textarea {
+                width: 100%;
+            }
+
+.right{
+  float:right;
+    margin-right: 5px;
+}
 
 
