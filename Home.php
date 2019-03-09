@@ -51,8 +51,10 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         }
         
         .card-body {
-                color: #EFD469;
-            }
+
+            color: #EFD469;
+        }
+        
 
         .buttons {
             position: absolute;
@@ -85,7 +87,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         
         .Posts {}
         
-        .disabled {}
+
+        .disabled {
+            visibility: hidden;
+        }
+
 
     </style>
 
@@ -142,7 +148,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <?php } ?>
         }
 
-        function DownVote(PostId){
+
+        function DownVote(PostId) {
+
             <?php  if($_SESSION['loggedIn']){?>
 
             //checks if the user has voted on this post
@@ -239,7 +247,6 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <div id="Posts">
 
 
-       
         <?php
     //Get the page number, if there isnt one then set it to 1
     if (isset($_GET['pageno'])) {
@@ -263,8 +270,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     INNER JOIN Department
     ON Posts.DepartmentID = Department.DepartmentID
     ORDER BY PostID DESC LIMIT $offset, $no_of_records_per_page";
-    
-        
+
+      
     // Execute query and store the posts
     $posts = mysqli_query($link, $query);
         
@@ -391,14 +398,21 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
     <ul class="pagination" style="width:100%">
         <div id="pagButtons" class="pagButtons">
-            <li><a href="?pageno=1">First</a></li>
+
+            <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>"><a href="?pageno=1">First</a></li>
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno <= 1){ echo '#'; } else { echo " ?pageno=".($pageno - 1); } ?>">Prev</a>
+            </li>
+            <li>
+                <a>
+                    <?php echo $pageno."/".$total_pages ?>
+                </a>
             </li>
             <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo " ?pageno=".($pageno + 1); } ?>">Next</a>
             </li>
-            <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+            <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>"><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+
         </div>
     </ul>
 
@@ -409,7 +423,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-    <?php
+
+<?php
+
     
 function CheckIfVoted($StaffId, $PostId, $link){
     $query = "SELECT * FROM Vote WHERE StaffID = $StaffId and PostID = $PostId";
