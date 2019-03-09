@@ -33,9 +33,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <style>
         .card-text {
             font-size: 14px;
-
             color: white;
-
             max-height: 20px;
         }
         
@@ -45,17 +43,14 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             border-style: solid;
             border-width: 1px;
             right: 13px;
-
             background-color: #093145;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         
         .card-body {
-
             color: #EFD469;
         }
         
-
         .buttons {
             position: absolute;
             bottom: 0;
@@ -80,18 +75,14 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         #date {
             font-size: 12px;
             text-align: right;
-
             color: #EFD469;
-
         }
         
         .Posts {}
         
-
         .disabled {
             visibility: hidden;
         }
-
 
     </style>
 
@@ -148,9 +139,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <?php } ?>
         }
 
-
         function DownVote(PostId) {
-
             <?php  if($_SESSION['loggedIn']){?>
 
             //checks if the user has voted on this post
@@ -215,6 +204,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <ul>
         <li>
             <a href="Home.php">Home</a></li>
+          <li>
+                    <a href="">Search Idea</a></li>
         <li style="float:right">
             <?php
             if($_SESSION['loggedIn'] == true){
@@ -227,7 +218,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 <li style="float:right">
                 <a href="Login.html">Sign In</a></li>
                 <li>';
-            }  if($_SESSION['loggedIn'] == true)
+            }  
+            if($_SESSION['loggedIn'] == true)
             {
                 echo '<li>
                 <li>
@@ -240,11 +232,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             }
             ?>
 
-                <li>
-                    <a href="">Search Idea</a></li>
+              
     </ul>
 
     <div id="Posts">
+
 
 
         <?php
@@ -270,8 +262,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     INNER JOIN Department
     ON Posts.DepartmentID = Department.DepartmentID
     ORDER BY PostID DESC LIMIT $offset, $no_of_records_per_page";
+    
 
-      
+
     // Execute query and store the posts
     $posts = mysqli_query($link, $query);
         
@@ -397,8 +390,17 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     </div>
 
     <ul class="pagination" style="width:100%">
-        <div id="pagButtons" class="pagButtons">
-
+        <?php 
+            if($_SESSION['loggedIn'] == true)
+            {?>
+            <span style=" position: absolute;font-size:12px; color:grey; float:left">
+                 <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
+        <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
+        <div></div></span>
+            <?php }
+            ?>
+        <div id="pagButtons"  class="pagButtons">
+            
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>"><a href="?pageno=1">First</a></li>
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno <= 1){ echo '#'; } else { echo " ?pageno=".($pageno - 1); } ?>">Prev</a>
@@ -412,7 +414,6 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo " ?pageno=".($pageno + 1); } ?>">Next</a>
             </li>
             <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>"><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-
         </div>
     </ul>
 
@@ -423,9 +424,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-
 <?php
-
     
 function CheckIfVoted($StaffId, $PostId, $link){
     $query = "SELECT * FROM Vote WHERE StaffID = $StaffId and PostID = $PostId";

@@ -59,7 +59,7 @@ $email = $_POST['email'];
 $pass = $_POST['password'];
 
 
-$query = "SELECT StaffID, Name, Password, Staff.DepartmentID, Staff.RoleID, Department.Department, Roles.Roles FROM Staff
+$query = "SELECT StaffID, Name, Password, Staff.DepartmentID, Staff.RoleID, Department.Department, Roles.Roles, Last_Logged, Post_Count FROM Staff
 INNER JOIN Department on Staff.DepartmentID = Department.DepartmentID 
 inner join Roles on Staff.RoleID = Roles.RoleID WHERE Email = '$email'";
 $result = mysqli_query($link, $query);
@@ -72,6 +72,8 @@ if(mysqli_num_rows($result) > 0)
                 $dbRole = $row['Roles'];
                 $name = $row['Name'];
                 $UID = $row['StaffID'];
+                $lastLogged = $row['Last_Logged'];
+                $postCount = $row['Post_Count'];
                 if(password_verify($pass, $hash)){
                     $_SESSION["role"] = "$dbRole";
                     $_SESSION["department"] = "$dbDepartment";
@@ -79,7 +81,11 @@ if(mysqli_num_rows($result) > 0)
                     $_SESSION['UID'] = $UID;
                     $_SESSION['loggedIn'] = true;
                     $_SESSION['departmentID'] = $dbDepartmentID;
+                    $_SESSION['lastLogged'] = $lastLogged;
+                    $_SESSION['postCount'] = $postCount;
                     echo $dbDepartment ."    " . $dbRole;
+                    $query = "Update Staff SET Last_Logged='" . date("Y/m/d") . "'WHERE StaffID=" . $UID;
+                    mysqli_query($link, $query);
                     header("location: Home.php");
                 }else{
                     echo "Incorrect Password";
