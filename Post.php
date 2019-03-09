@@ -30,6 +30,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
         <script src="Js/Upvote.js"></script>
 
 
@@ -39,6 +40,7 @@ if(!$_SESSION['loggedIn'] == "true"){
         <script>
             // downvote function check to see if the user has voted and puts through the vote if they havent
             function DownVote(PostId) {
+
                 <?php  if($_SESSION['loggedIn']){?>
 
                 //checks if the user has voted on this post
@@ -69,14 +71,18 @@ if(!$_SESSION['loggedIn'] == "true"){
                             var updateRequest = new XMLHttpRequest();
                             updateRequest.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
+
                                     document.getElementById("dislikeBtn-" + PostId).innerHTML = this.response;
+
                                     $("#likeBtn-" + PostId).removeClass("btn-success");
                                     $("#likeBtn-" + PostId).addClass("btn-secondary");
                                     $("#dislikeBtn-" + PostId).removeClass("btn-danger");
                                     $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                                 }
                             };
+
                             updateRequest.open("GET", "Downvote.php?q=" + PostId, true);
+
                             updateRequest.send();
                         }
 
@@ -84,13 +90,17 @@ if(!$_SESSION['loggedIn'] == "true"){
                 };
 
                 //sends the checkVote request
+
                 checkVote.open("GET", "Vote.php?type=dislike&PostID=" + PostId + "&UserID=<?php echo $_SESSION['UID']; ?>", true);
+
                 checkVote.send();
                 <?php } ?>
             }
+
 
             // upvote function check to see if the user has voted and puts through the vote if they havent
             function UpVote(PostId) {
+
                 <?php  if($_SESSION['loggedIn']){?>
 
                 //checks if the user has voted on this post
@@ -121,14 +131,18 @@ if(!$_SESSION['loggedIn'] == "true"){
                             var updateRequest = new XMLHttpRequest();
                             updateRequest.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
+
                                     document.getElementById("likeBtn-" + PostId).innerHTML = this.response;
+
                                     $("#likeBtn-" + PostId).removeClass("btn-success");
                                     $("#likeBtn-" + PostId).addClass("btn-secondary");
                                     $("#dislikeBtn-" + PostId).removeClass("btn-danger");
                                     $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                                 }
                             };
+
                             updateRequest.open("GET", "Upvote.php?q=" + PostId, true);
+
                             updateRequest.send();
                         }
 
@@ -136,10 +150,13 @@ if(!$_SESSION['loggedIn'] == "true"){
                 };
 
                 //sends the checkVote request
+
                 checkVote.open("GET", "Vote.php?type=like&PostID=" + PostId + "&UserID=<?php echo $_SESSION['UID']; ?>", true);
+
                 checkVote.send();
                 <?php } ?>
             }
+
 
             //when the user clicks cubmit comment it is validated, uploaded to the db and the comments get refreshed. (updates live)
             function SubmitComment(PostID) {
@@ -301,6 +318,7 @@ if(!$_SESSION['loggedIn'] == "true"){
     </head>
 
     <body onload="LoadComments(<?php echo $_GET['PostID']; ?>)">
+
         <?php
       $postId = $_GET['PostID'];
       
@@ -332,6 +350,7 @@ if(!$_SESSION['loggedIn'] == "true"){
             $downVote= $row['Down_Vote'];
             $anon= $row['Anonymous'];
             $staffId = $row['StaffID'];
+
         }
         
     $date = date("d-m-Y", strtotime($date));
@@ -339,7 +358,9 @@ if(!$_SESSION['loggedIn'] == "true"){
     }else{
         echo "Post does not exsist.";
         echo $query;
+
     }  ?>
+
             <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
             <ul>
                 <li>
@@ -368,6 +389,8 @@ if(!$_SESSION['loggedIn'] == "true"){
                     ' ;
                 }
                 ?>
+
+
                         <li>
                             <a href="">Search Idea</a></li>
             </ul>
@@ -378,10 +401,12 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                         <h5 class="card-title" style="color: #EFD469" id="postTitle"><?php echo $title; ?></h5>
                         <h6 class="card-subtitle" style="color: white"><?php echo $department; ?></h6>
+
                         <p><br></p>
                         <div>
 
                             <div style="text-align: center"><u>Category</u></div>
+
                             <div class="card-text" style="text-align: center" id="postCategory">
                                 <?php  echo $category; ?>
                             </div>
@@ -390,6 +415,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             <div style="text-slign:left"><u>Description</u></div>
                             <div class="card-text" id="postDesc">
+
                                 <?php  echo $desc; ?>
                             </div>
 
@@ -397,7 +423,9 @@ if(!$_SESSION['loggedIn'] == "true"){
                             <p><br></p>
 
                             <div style="text-slign:left"><u>Date</u></div>
+
                             <div class="card-text" id="postDate">
+
                                 <?php  echo $date; ?>
                             </div>
 
@@ -411,7 +439,9 @@ if(!$_SESSION['loggedIn'] == "true"){
                                 echo $name;
                                 }else{
                                     echo "Anon";
+
                                     
+
                                 } ?>
                             </div>
 
@@ -421,6 +451,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             <div class="buttons" style="color:white">
                                 <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "up");?> btn-sm">
+
                                    Up
                                     <?php echo $upVote; ?>
                                 </a>
@@ -446,11 +477,13 @@ if(!$_SESSION['loggedIn'] == "true"){
                             </div>
 
 
+
                         </div>
 
                     </div>
                 </div>
             </div>
+
 
             <hr />
             <h5 style="text-align:left">Insert your Comments</h5>
@@ -469,6 +502,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                 </div>
             </div>
+
 
     </body>
 
@@ -503,6 +537,7 @@ function SetStyle($styleToSet, $buttonType){
         
     }
     }
+
                           
     function CategoryDropDown($link){
         /*Pulls the departments from the department table and displays it as a
@@ -525,4 +560,5 @@ function SetStyle($styleToSet, $buttonType){
                           
                           
                           
+
 ?>
