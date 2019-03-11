@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 
-   
+
 
 
 <head>
@@ -11,11 +11,22 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link href="main.css" rel="stylesheet" />
 </head>
 
 <body>
- <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
+    <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
     <ul>
         <li>
             <a href="Home.php">Home</a></li>
@@ -23,21 +34,32 @@
             <a href="Register.php">Register</a></li>
         <li style="float:right">
             <a href="Login.html">Sign In</a></li>
-       
-            <li>
-                <a href="">Search Idea</a></li>
+
+        <li>
+            <a href="">Search Idea</a></li>
     </ul>
 
     <form action="LoginAuth.php" method="post">
         <table width="495" height="232" border="0">
             <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="text" class="" placeholder="Example@example.co.uk" name="email" id="username" size="25"></td>
+                <div class="form-group">
+                    <td><label for="email">Email address</label></td>
+                    <td><input type="text" id="email" class="form-control textField " aria-describedby="emailHelp" name="email" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted"></small></td>
+                </div>
+
+
+
+
             </tr>
 
             <tr>
-                <td><label for="pwd">Password:</label></td>
-                <td><input type="password" class="" name="password" placeholder="(Case Sensitive)" id="pwd" size="25"></td>
+                <td> <label for="pwd">Password</label></td>
+                <td>
+                    <div class="form-group">
+                        <input type="password" name="password" id="pwd" class="form-control textField" placeholder="Password">
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td><button class="button" type="submit">Log In</button></td>
