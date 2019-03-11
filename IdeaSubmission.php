@@ -39,6 +39,8 @@ $error = "";
         <ul>
             <li>
                 <a href="Home.php">Home</a></li>
+            <li>
+                <a href="">Search Idea</a></li>
             <?php if($_SESSION['loggedIn'] == true){
     echo '<li style="float:right">
     <a href="Logout.php">Logout</a></li>';
@@ -53,19 +55,17 @@ $error = "";
                 ?>
             <li>
                 <a href="">My Ideas</a></li>
-            <li>
-                <a href="">Edit Ideas</a></li>
+          
             <li>
                 <a href="IdeaSubmission.php">Add Ideas</a></li>
-            <li>
-                <a href="">Search Idea</a></li>
+            
         </ul>
-        <h1>Submit Idea</h1>
+        <h1 style="background-color:rgba(9,49,69, 0.95); margin-bottom:0px;color:#EFD469">Submit Idea</h1>
         <form action="IdeaSubmission.php" method="post" enctype="multipart/form-data">
             <table width="495" height="232" border="0"><tr><td> <label for="title">Title:</label></td>
                     <td>
                         <div class="form-group">
-                            <input id="title" size="25" name="title" type="text" placeholder="Enter title (Case Sensitive.)" class="form-control textField form-control-sm">
+                            <input id="title" size="25" name="title" type="text" placeholder="Enter title (Case Sensitive.)" class="form-control textField form-control-sm shadow">
                         </div>
                     </td>
                 </tr>
@@ -74,7 +74,7 @@ $error = "";
                     <td>Description: </td>
                     <td>
                         <div class="form-group">
-                            <textarea rows="6" cols="60" type="text" name="description" placeholder="Insert your Idea description here" class="form-control textField form-control-sm" required></textarea>
+                            <textarea rows="6" cols="60" type="text" name="description" placeholder="Insert your Idea description here" class="form-control textField form-control-sm shadow" required></textarea>
                         </div>
                     </td>
                 </tr>
@@ -83,7 +83,7 @@ $error = "";
                     <td>Department: </td>
                     <td>
                         <div class="form-group">
-                            <input size="25" type="text" style="background-color: gainsboro;"   name="departmentvalue" id="readOnly" class="form-control textField form-control-sm" value="<?php echo $_SESSION['department']; ?>" readonly/>
+                            <input size="25" type="text" style="background-color: gainsboro;"   name="departmentvalue" id="readOnly" class="form-control textField form-control-sm shadow" value="<?php echo $_SESSION['department']; ?>" readonly/>
                             <input type="hidden" name="department" value="<?php echo $_SESSION['departmentID']; ?>" />
                         </div>
                     </td>
@@ -92,7 +92,7 @@ $error = "";
                 <tr>
                     <td>Catergory</td>
                     <td>
-                        <select class="form-control form-control-sm textField" name="department">
+                        <select class="form-control form-control-sm textField shadow" name="category">
                        
                 <?php 
                 //Calls the function to display departments
@@ -105,7 +105,7 @@ $error = "";
                 </td>
                 <td>
                     <div class="custom-file textField">
-                        <input type="file" class="custom-file-input " name="file" id="file">
+                        <input type="file" class="custom-file-input shadow" name="file" id="file">
                         <label class="custom-file-label" id="fileHelp" for="inputGroupFile02">Choose file</label>
                         <small id="emailHelp" class="form-text ">You can upload a file to help support your idea!.(JPEG, GI PDF ...)</small>
                     </div>
@@ -122,7 +122,7 @@ $error = "";
                         <div class="input-group mb-3">
 
                         </div>
-                    </td>>
+                    </td><td></td>
                 </tr>
             </table>
             <button class="button" type="submit"> Submit Post</button>
@@ -268,7 +268,7 @@ if($_POST and $_SESSION['loggedIn'] == true ){
         
         if (mysqli_num_rows($result)){
             while($row = mysqli_fetch_assoc($result)) {
-                echo ' <option  value=' . $row["CategoryID"] . '>' . $row["Category"] .         '</option>';
+                echo ' <option  value=' . (int)$row["CategoryID"]  . '>' . $row["Category"] .         '</option>';
                         
             }
         } else {

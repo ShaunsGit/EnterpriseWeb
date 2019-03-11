@@ -85,10 +85,8 @@ td {
     text-align: left;
     padding: 8px;
     vertical-align: middle;
-/*
     background-color: rgba(9,49,69, 0.95);
     color: #EFD469;
-*/
   
 }
 td{
@@ -398,3 +396,8 @@ input[type=checkbox] {
 }
 
 
+.err{
+     outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}

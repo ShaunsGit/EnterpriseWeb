@@ -10,7 +10,11 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
-
+    <!-- COOKIE Notification code snippet from   https://cookieconsent.insites.com-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+  
+    <!-- ---
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
@@ -23,6 +27,55 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link href="main.css" rel="stylesheet" />
+
+
+
+    <script>
+        $(document).ready(function() {
+            checkCookie();
+        });
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+
+        function checkCookie() {
+            var email = getCookie("email");
+            if (email != "") {
+                $("#email").val(decodeURIComponent(email));
+            }
+
+        }
+
+    </script>
+    
+      <script>
+        window.addEventListener("load", function() {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#000"
+                    },
+                    "button": {
+                        "background": "#f1d600"
+                    }
+                }
+            })
+        });
+
+    </script>
 </head>
 
 <body>
@@ -43,8 +96,8 @@
         <table width="495" height="232" border="0">
             <tr>
                 <div class="form-group">
-                    <td><label for="email">Email address</label></td>
-                    <td><input type="text" id="email" class="form-control textField " aria-describedby="emailHelp" name="email" placeholder="Enter email">
+                    <td><label for="email">Email address:</label></td>
+                    <td><input type="text" id="email" class="form-control textField shadow" aria-describedby="emailHelp" name="email" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted"></small></td>
                 </div>
 
@@ -54,15 +107,16 @@
             </tr>
 
             <tr>
-                <td> <label for="pwd">Password</label></td>
+                <td> <label for="pwd">Password:</label></td>
                 <td>
                     <div class="form-group">
-                        <input type="password" name="password" id="pwd" class="form-control textField" placeholder="Password">
+                        <input type="password" name="password" id="pwd" class="form-control textField shadow" placeholder="Password">
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><button class="button" type="submit">Log In</button></td>
+                <td><input type="checkbox" name="rememberMe" value="1"> Remember me</td>
             </tr>
         </table>
     </form>

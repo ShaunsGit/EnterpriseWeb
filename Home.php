@@ -83,6 +83,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         .disabled {
             visibility: hidden;
         }
+        
+        
 
     </style>
 
@@ -111,6 +113,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                         $("#likeBtn-" + PostId).removeClass("btn-success");
                         $("#likeBtn-" + PostId).addClass("btn-secondary");
                         $("#dislikeBtn-" + PostId).removeClass("btn-danger");
+                        $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                         $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                     } else {
 
@@ -204,8 +207,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <ul>
         <li>
             <a href="Home.php">Home</a></li>
-          <li>
-                    <a href="">Search Idea</a></li>
+        <li>
+            <a href="">Search Idea</a></li>
         <li style="float:right">
             <?php
             if($_SESSION['loggedIn'] == true){
@@ -225,14 +228,12 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 <li>
                 <a href="">My Ideas</a></li>
                 <li>
-                <a href="">Edit Ideas</a></li>
-                <li>
                 <a href="IdeaSubmission.php">Add Ideas</a></li>
                 ' ;
             }
             ?>
 
-              
+
     </ul>
 
     <div id="Posts">
@@ -393,14 +394,14 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         <?php 
             if($_SESSION['loggedIn'] == true)
             {?>
-            <span style=" position: absolute;font-size:12px; color:grey; float:left">
+        <span style=" position: absolute;font-size:12px; color:grey; float:left">
                  <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
         <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
         <div></div></span>
-            <?php }
+        <?php }
             ?>
-        <div id="pagButtons"  class="pagButtons">
-            
+        <div id="pagButtons" class="pagButtons">
+
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>"><a href="?pageno=1">First</a></li>
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno <= 1){ echo '#'; } else { echo " ?pageno=".($pageno - 1); } ?>">Prev</a>

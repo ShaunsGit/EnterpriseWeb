@@ -174,6 +174,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             console.log("1: " + response);
                             LoadComments(PostID);
+                           
 
 
 
@@ -191,6 +192,7 @@ if(!$_SESSION['loggedIn'] == "true"){
             // gets all comments for the specific post. 
             function LoadComments(PostID) {
                 $("#comments").html("");
+                   getCommentCount(PostID);
 
 
                 var getComments = new XMLHttpRequest();
@@ -198,18 +200,41 @@ if(!$_SESSION['loggedIn'] == "true"){
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
                         var response = response.substr(267);
-                        console.log(response);
+                        //console.log(response);
                         $('#comment').val("");
                         $('#comments').append(response);
                         <?php if($_SESSION['role']== "Admin"){ ?>
                         $('.comment').removeAttr("hidden");
                         <?php } ?>
+                     
 
                     }
 
                 };
                 getComments.open("GET", "getComment.php?postID=" + PostID, true);
                 getComments.send();
+
+
+
+
+            }
+
+            function getCommentCount(PostID) {
+                
+                var getCommentCount = new XMLHttpRequest();
+                getCommentCount.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        var response = response.substr(267);
+                        console.log(response);
+                        $('#count').html("("+response+")");
+                        
+                   
+                    }
+
+                };
+                getCommentCount.open("GET", "getCommentCount.php?postID=" + PostID, true);
+                getCommentCount.send();
             }
 
 
@@ -304,7 +329,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                         if (this.readyState == 4 && this.status == 200) {
                             var response = this.responseText;
                             var response = response.substr(267);
-                            
+
                             window.location.replace("Home.php");
                             console.log(response);
 
@@ -313,7 +338,8 @@ if(!$_SESSION['loggedIn'] == "true"){
                     };
                     deletePost.open("GET", "deletePost.php?postID=" + PostID, true);
                     deletePost.send();
-            }}
+                }
+            }
 
         </script>
     </head>
@@ -478,7 +504,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
 
 
-                <h5 style="text-align:left">All Comments</h5>
+                <h5 style="text-align:left">All Comments<span id='count'>(0)</span></h5>
 
 
 
