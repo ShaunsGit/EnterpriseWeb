@@ -14,7 +14,7 @@ INNER JOIN Staff
 on Comments.StaffID = Staff.StaffID 
 INNER JOIN Department
 on Staff.DepartmentID = Department.DepartmentID
-where PostID =" . $postID;
+where PostID =" . $postID ." ORDER BY CommentID DESC";
 
 $result = mysqli_query($link,$query);
 

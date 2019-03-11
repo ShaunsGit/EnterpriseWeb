@@ -438,11 +438,11 @@ if(!$_SESSION['loggedIn'] == "true"){
 
 
                             <div class="buttons" style="color:white">
-                                <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, " up ");?> btn-sm">
+                                <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "up");?> btn-sm">
                                    Up
                                     <?php echo $upVote; ?>
                                 </a>
-                                <a onclick="DownVote(<?php echo $_GET['PostID']; ?>)" id="dislikeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, " down "); ?> btn-sm">
+                                <a onclick="DownVote(<?php echo $_GET['PostID']; ?>)" id="dislikeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "down"); ?> btn-sm">
                                      Down
                                     <?php echo $downVote; ?>
                                 </a>
