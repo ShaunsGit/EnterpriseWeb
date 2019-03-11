@@ -10,6 +10,8 @@ session_start();
 require 'mysql.php';
 $link = mysqli_connect($host, $user, $passwd, $dbName) or 
                 die('Failed to connect to MySQL server. ' . mysqli_connect_error() .'<br />');
+
+setcookie("email", "", time() + (86400 * 30), "/");
 ?>
 
 
@@ -36,8 +38,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         <link href="main.css" rel="stylesheet" />
 
 
-
-
+<style>table {
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+        }</style>
+      
     </head>
 
     <body>
@@ -60,7 +65,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                     <td><label for="name">Name:</label> </td>
                     <td>
                         <div class="form-group">
-                            <input id="name" size="25" name="name" type="text" placeholder="Enter Name (Case Sensitive.)" class="form-control textField form-control-sm">
+                            <input id="name" size="25" name="name" type="text" placeholder="Enter Name (Case Sensitive.)" class="form-control textField form-control-sm shadow">
                         </div>
                     </td>
 
@@ -70,7 +75,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                     <td><label for="email">Email:</label> </td>
                     <td>
                         <div class="form-group">
-                            <input id="email" size="25" name="email" type="email" placeholder="Enter Email (Case Sensitive.)" class="form-control textField form-control-sm">
+                            <input id="email" size="25" name="email" type="email" placeholder="Enter Email (Case Sensitive.)" class="form-control textField form-control-sm shadow">
                         </div>
                     </td>
                 </tr>
@@ -95,7 +100,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                     <td> <label for="pass">Password</label> </td>
                     <td>
                         <div class="form-group">
-                            <input id="password" size="25" name="pass" type="password" class="form-control textField form-control-sm" placeholder="Enter Password">
+                            <input id="password" size="25" name="pass" type="password" class="form-control textField form-control-sm shadow" placeholder="Enter Password">
                         </div>
                     </td>
                 </tr>
@@ -103,7 +108,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                     <td><label for="pass">Confirm Password:</label> </td>
                     <td>
                         <div class="form-group">
-                            <input  id="confirmPassword" size="25" name="confirmPass" type="password"class="form-control textField form-control-sm"  placeholder="Type password again">
+                            <input id="confirmPassword" size="25" name="confirmPass" type="password" class="form-control textField form-control-sm shadow" placeholder="Type password again">
                         </div>
                     </td>
                 </tr>
@@ -111,7 +116,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
                 <td>
                     <button type="submit" name="registerbtn" id="register" class="button">Register</button>
-                </td>
+                </td><td></td>
             </table>
         </form>
 
@@ -122,12 +127,33 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         <!--Return the user to the login page -->
 
         <form action="Login.html" method="post">
-            <td>
+            
                 <button type="submit" name="backToLogin" id="backToLogin" class="buttonRed">Back to Login</button>
-            </td>
+        
 
 
         </form>
+          <script>
+
+           
+            $("form").submit(function(e) {
+                  
+                var validationFailed = false;
+                // do your validation here ...
+                var password = $('#password');
+                var conPassword = $('#confirmPassword');
+                if(password.val() == conPassword.val()){
+                    return true;
+                }
+                
+                if (validationFailed) {
+                  e.preventDefault();
+                    conPassword.addClass("err");
+                    return false;
+                }
+            });
+      
+        </script>
     </body>
 
     </html>

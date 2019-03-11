@@ -4,8 +4,9 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 die('Failed to connect to MySQL server. ' . mysqli_connect_error() .'<br />');
 
 
-
+$count=false;
 $postID = (int)$_REQUEST["postID"];
+
 
 
 $query = "SELECT CommentID, Comments.StaffID,PostID,Text,Date_Posted,Staff.Name, Department.Department, Staff.DepartmentID
