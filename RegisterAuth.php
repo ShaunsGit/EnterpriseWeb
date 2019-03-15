@@ -47,6 +47,7 @@ extract($_POST);
                 $result = $ps->execute();
                 
              if($result){
+                  setcookie("email", urldecode($Email), time() + (86400 * 30), "/"); // 86400 = 1 day
                  header("location: Login.html");
              }
 

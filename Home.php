@@ -30,12 +30,12 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link href="main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         .card-text {
             font-size: 14px;
-
             color: white;
-
             max-height: 20px;
         }
         
@@ -45,15 +45,14 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             border-style: solid;
             border-width: 1px;
             right: 13px;
-
             background-color: #093145;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         
         .card-body {
-                color: #EFD469;
-            }
-
+            color: #EFD469;
+        }
+        
         .buttons {
             position: absolute;
             bottom: 0;
@@ -78,19 +77,28 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         #date {
             font-size: 12px;
             text-align: right;
-
             color: #EFD469;
-
         }
         
         .Posts {}
         
-        .disabled {}
+        .disabled {
+            visibility: hidden;
+        }
 
     </style>
 
 
     <script>
+        function responsive() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
         function UpVote(PostId) {
             <?php  if($_SESSION['loggedIn']){?>
 
@@ -114,6 +122,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                         $("#likeBtn-" + PostId).removeClass("btn-success");
                         $("#likeBtn-" + PostId).addClass("btn-secondary");
                         $("#dislikeBtn-" + PostId).removeClass("btn-danger");
+                        $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                         $("#dislikeBtn-" + PostId).addClass("btn-secondary");
                     } else {
 
@@ -142,7 +151,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             <?php } ?>
         }
 
-        function DownVote(PostId){
+        function DownVote(PostId) {
             <?php  if($_SESSION['loggedIn']){?>
 
             //checks if the user has voted on this post
@@ -203,43 +212,34 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <br />
 
 
-
-    <ul>
-        <li>
-            <a href="Home.php">Home</a></li>
-        <li style="float:right">
-            <?php
+    <div class="topnav" id="myTopnav">
+        <a href="Home.php">Home</a>
+        <a href="">Search Idea</a>
+        <?php
             if($_SESSION['loggedIn'] == true){
-                    echo '<li style="float:right">        
-                    <a href="Logout.php">Logout</a></li>';
+                    echo '<a style="float:right" href="Logout.php">Logout</a>';
             }else {
                 echo '
-                <li style="float:right">
-                <a href="Register.php">Register</a></li>
-                <li style="float:right">
-                <a href="Login.html">Sign In</a></li>
-                <li>';
-            }  if($_SESSION['loggedIn'] == true)
+                <a style="float:right" href="Register.php">Register</a>
+                <a style="float:right" href="Login.html">Sign In</a>
+                ';
+            }  
+            if($_SESSION['loggedIn'] == true)
             {
-                echo '<li>
-                <li>
-                <a href="">My Ideas</a></li>
-                <li>
-                <a href="">Edit Ideas</a></li>
-                <li>
-                <a href="IdeaSubmission.php">Add Ideas</a></li>
-                ' ;
+                echo '
+                <a href="">My Ideas</a>
+                <a href="IdeaSubmission.php">Add Ideas</a>' ;
             }
             ?>
-
-                <li>
-                    <a href="">Search Idea</a></li>
-    </ul>
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i class="fa fa-bars"> </i>
+            </a>
+    </div>
 
     <div id="Posts">
 
 
-       
+
         <?php
     //Get the page number, if there isnt one then set it to 1
     if (isset($_GET['pageno'])) {
@@ -264,7 +264,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     ON Posts.DepartmentID = Department.DepartmentID
     ORDER BY PostID DESC LIMIT $offset, $no_of_records_per_page";
     
-        
+
+
     // Execute query and store the posts
     $posts = mysqli_query($link, $query);
         
@@ -390,15 +391,30 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     </div>
 
     <ul class="pagination" style="width:100%">
+        <?php 
+            if($_SESSION['loggedIn'] == true)
+            {?>
+        <span style=" position: absolute;font-size:12px; color:grey; float:left">
+                 <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
+        <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
+        <div></div></span>
+        <?php }
+            ?>
         <div id="pagButtons" class="pagButtons">
-            <li><a href="?pageno=1">First</a></li>
+
+            <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>"><a href="?pageno=1">First</a></li>
             <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno <= 1){ echo '#'; } else { echo " ?pageno=".($pageno - 1); } ?>">Prev</a>
+            </li>
+            <li>
+                <a>
+                    <?php echo $pageno."/".$total_pages ?>
+                </a>
             </li>
             <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
                 <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo " ?pageno=".($pageno + 1); } ?>">Next</a>
             </li>
-            <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+            <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>"><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
         </div>
     </ul>
 
@@ -409,7 +425,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-    <?php
+<?php
     
 function CheckIfVoted($StaffId, $PostId, $link){
     $query = "SELECT * FROM Vote WHERE StaffID = $StaffId and PostID = $PostId";

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 
-   
+
 
 
 <head>
@@ -10,37 +10,122 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
+    <!-- COOKIE Notification code snippet from   https://cookieconsent.insites.com-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+  
+    <!-- ---
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link href="main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <script>
+        function responsive() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+        
+        $(document).ready(function() {
+            checkCookie();
+        });
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+
+        function checkCookie() {
+            var email = getCookie("email");
+            if (email != "") {
+                $("#email").val(decodeURIComponent(email));
+            }
+
+        }
+
+    </script>
+    
+      <script>
+        window.addEventListener("load", function() {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#000"
+                    },
+                    "button": {
+                        "background": "#f1d600"
+                    }
+                }
+            })
+        });
+
+    </script>
 </head>
 
 <body>
- <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
-    <ul>
-        <li>
-            <a href="Home.php">Home</a></li>
-        <li style="float:right">
-            <a href="Register.php">Register</a></li>
-        <li style="float:right">
-            <a href="Login.html">Sign In</a></li>
-       
-            <li>
-                <a href="">Search Idea</a></li>
-    </ul>
+    <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
+    
+    <div class="topnav" id="myTopnav">
+                <a href="Home.php">Home</a>
+                <a href="">Search Idea</a>
+                <a style="float:right" href="Register.php">Register</a>
+                <a style="float:right" href="Login.html" class="active">Sign In</a>
+                <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                    <i class="fa fa-bars"> </i>
+                </a>
+        </div>
 
     <form action="LoginAuth.php" method="post">
         <table width="495" height="232" border="0">
             <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="text" class="" placeholder="Example@example.co.uk" name="email" id="username" size="25"></td>
+                <div class="form-group">
+                    <td><label for="email">Email address:</label></td>
+                    <td><input type="text" id="email" class="form-control textField shadow" aria-describedby="emailHelp" name="email" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted"></small></td>
+                </div>
+
+
+
+
             </tr>
 
             <tr>
-                <td><label for="pwd">Password:</label></td>
-                <td><input type="password" class="" name="password" placeholder="(Case Sensitive)" id="pwd" size="25"></td>
+                <td> <label for="pwd">Password:</label></td>
+                <td>
+                    <div class="form-group">
+                        <input type="password" name="password" id="pwd" class="form-control textField shadow" placeholder="Password">
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td><button class="button" type="submit">Log In</button></td>
+                <td><input type="checkbox" name="rememberMe" value="1"> Remember me</td>
             </tr>
         </table>
     </form>

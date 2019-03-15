@@ -31,145 +31,24 @@ if(!$_SESSION['loggedIn'] == "true"){
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
+
+
         <link href="main.css" rel="stylesheet" />
-        <style>
-            .card-text {
-                font-size: 18px;
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                color: white;
-                max-height: 20px;
-                text-align: left;
 
-            }
-            
-            .card {
-                height: inherit;
-                display: block;
-                margin: auto;
-                border-style: solid;
-
-                width: 85%;
-                border-width: 2px;
-                background-color: #093145;
-
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                padding-bottom: 5px;
-                margin-top: 5px;
-            }
-            
-
-            .card-body {
-                color: #EFD469;
-
-            }
-
-            
-            .buttons {
-                bottom: 0;
-                padding-bottom: 13px;
-                padding-top: 5px;
-            }
-            
-            .btn {
-                position: relative;
-            }
-            
-            .pagination {
-                margin-top: 20px;
-            }
-            
-            .pagButtons {
-                position: relative;
-                margin: 0 auto;
-            }
-            
-            #date {
-                font-size: 12px;
-                text-align: right;
-                color: black;
-            }
-            
-            .container {
-                padding: 0 0 0 0;
-                height: 500px;
-            }
-            
-            textarea {
-                width: 100%;
-            }
-
-        </style>
-    <script>
-        function Comment() {
-            var com =document.getElementById("comment");  
-            document.getElementById("tester").innerHTML = com.value;
-//            var uploadComment = new XMLHttpRequest();
-//            uploadComment.onreadystatechange = function() {
-//                if (this.readyState == 4 && this.status == 200) {
-//                    
-//                }
-//                
-//            };
-//            uploadComment.open("POST", "Comment.php", true);
-//            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//            xhttp.send("fname=Henry&lname=Ford");
-          
-
-        }
-
-    </script>
         <script>
-            function UpVote(PostId) {
-                <?php  if($_SESSION['loggedIn']){?>
-
-                //checks if the user has voted on this post
-                var checkVote = new XMLHttpRequest();
-                checkVote.onreadystatechange = function() {
-
-                    //if the response is successful, then the code below is executed
-                    if (this.readyState == 4 && this.status == 200) {
-
-                        //takes the response and creates a boolean variable to see if user can vote
-                        var response = this.responseText;
-                        var regex = new RegExp("Deny");
-                        console.log("Allow vote? = " + response.match(regex));
-
-                        //if the user has voted before then this will be true.
-                        var hasVoted = regex.test(response);
-
-                        //if the user has voted before, then change button style to grey
-                        if (hasVoted) {
-                            $("#likeBtn-" + PostId).removeClass("btn-success");
-                            $("#likeBtn-" + PostId).addClass("btn-secondary");
-                            $("#dislikeBtn-" + PostId).removeClass("btn-danger");
-                            $("#dislikeBtn-" + PostId).addClass("btn-secondary");
-                        } else {
-
-                            //if the user hasnt voted , then the table gets updated and their vote added to the vote table.
-                            //updates the post table to show incremented votes.
-                            var updateRequest = new XMLHttpRequest();
-                            updateRequest.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    document.getElementById("likeBtn-" + PostId).innerHTML = this.response;
-                                    $("#likeBtn-" + PostId).removeClass("btn-success");
-                                    $("#likeBtn-" + PostId).addClass("btn-secondary");
-                                    $("#dislikeBtn-" + PostId).removeClass("btn-danger");
-                                    $("#dislikeBtn-" + PostId).addClass("btn-secondary");
-                                }
-                            };
-                            updateRequest.open("GET", "Upvote.php?q=" + PostId, true);
-                            updateRequest.send();
-                        }
-
-                    }
-                };
-
-                //sends the checkVote request
-                checkVote.open("GET", "Vote.php?type=like&PostID=" + PostId + "&UserID=<?php echo $_SESSION['UID']; ?>", true);
-                checkVote.send();
-                <?php } ?>
+            
+            function responsive() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
             }
-
+            
+            // downvote function check to see if the user has voted and puts through the vote if they havent
             function DownVote(PostId) {
                 <?php  if($_SESSION['loggedIn']){?>
 
@@ -221,10 +100,262 @@ if(!$_SESSION['loggedIn'] == "true"){
                 <?php } ?>
             }
 
+            // upvote function check to see if the user has voted and puts through the vote if they havent
+            function UpVote(PostId) {
+                <?php  if($_SESSION['loggedIn']){?>
+
+                //checks if the user has voted on this post
+                var checkVote = new XMLHttpRequest();
+                checkVote.onreadystatechange = function() {
+
+                    //if the response is successful, then the code below is executed
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        //takes the response and creates a boolean variable to see if user can vote
+                        var response = this.responseText;
+                        var regex = new RegExp("Deny");
+                        console.log("Allow vote? = " + response.match(regex));
+
+                        //if the user has voted before then this will be true.
+                        var hasVoted = regex.test(response);
+
+                        //if the user has voted before, then change button style to grey
+                        if (hasVoted) {
+                            $("#likeBtn-" + PostId).removeClass("btn-success");
+                            $("#likeBtn-" + PostId).addClass("btn-secondary");
+                            $("#dislikeBtn-" + PostId).removeClass("btn-danger");
+                            $("#dislikeBtn-" + PostId).addClass("btn-secondary");
+                        } else {
+
+                            //if the user hasnt voted , then the table gets updated and their vote added to the vote table.
+                            //updates the post table to show incremented votes.
+                            var updateRequest = new XMLHttpRequest();
+                            updateRequest.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("likeBtn-" + PostId).innerHTML = this.response;
+                                    $("#likeBtn-" + PostId).removeClass("btn-success");
+                                    $("#likeBtn-" + PostId).addClass("btn-secondary");
+                                    $("#dislikeBtn-" + PostId).removeClass("btn-danger");
+                                    $("#dislikeBtn-" + PostId).addClass("btn-secondary");
+                                }
+                            };
+                            updateRequest.open("GET", "Upvote.php?q=" + PostId, true);
+                            updateRequest.send();
+                        }
+
+                    }
+                };
+
+                //sends the checkVote request
+                checkVote.open("GET", "Vote.php?type=like&PostID=" + PostId + "&UserID=<?php echo $_SESSION['UID']; ?>", true);
+                checkVote.send();
+                <?php } ?>
+            }
+
+            //when the user clicks cubmit comment it is validated, uploaded to the db and the comments get refreshed. (updates live)
+            function SubmitComment(PostID) {
+                var comment = $("#comment").val();
+                var comLength = comment.length;
+                var isValid = Validate(comment);
+
+
+                if (isValid == "e" || isValid == "m") {
+                    //error if empty or exceeds maximum 
+                    $("#comment").css("background-color", "red");
+
+                    if (isValid == "e") {
+                        alert("The Comment can not be empty.\nInvalid input.");
+                    }
+
+                    if (isValid == "m") {
+                        alert(" Maximum numbers of characters exceeded. (max 255).\nCurrent length: " + comLength + " chars\nInvalid input.");
+                    }
+
+
+
+                } else {
+                    $("#comment").css("background-color", "white");
+                    var comment = isValid;
+
+                    var uploadComment = new XMLHttpRequest();
+                    uploadComment.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = this.responseText;
+                            var response = response.substr(267);
+
+                            console.log("1: " + response);
+                            LoadComments(PostID);
+                           
+
+
+
+                        }
+
+                    };
+                    uploadComment.open("POST", "Comment.php", true);
+                    uploadComment.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    uploadComment.send("postID=" + PostID + "&com=" + comment + "&userID=" + <?php echo $_SESSION['UID']; ?>);
+
+
+                }
+            }
+
+            // gets all comments for the specific post. 
+            function LoadComments(PostID) {
+                $("#comments").html("");
+                   getCommentCount(PostID);
+
+
+                var getComments = new XMLHttpRequest();
+                getComments.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        var response = response.substr(267);
+                        //console.log(response);
+                        $('#comment').val("");
+                        $('#comments').append(response);
+                        <?php if($_SESSION['role']== "Admin"){ ?>
+                        $('.comment').removeAttr("hidden");
+                        <?php } ?>
+                     
+
+                    }
+
+                };
+                getComments.open("GET", "getComment.php?postID=" + PostID, true);
+                getComments.send();
+
+
+
+
+            }
+
+            function getCommentCount(PostID) {
+                
+                var getCommentCount = new XMLHttpRequest();
+                getCommentCount.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        var response = response.substr(267);
+                        console.log(response);
+                        $('#count').html("("+response+")");
+                        
+                   
+                    }
+
+                };
+                getCommentCount.open("GET", "getCommentCount.php?postID=" + PostID, true);
+                getCommentCount.send();
+            }
+
+
+
+            //validates the users input.
+            function Validate(com) {
+                var rgx = /[<>]/;
+                var length = com.length;
+                var err;
+                if (length > 256) {
+
+                    console.log("input is too large (max 256char)");
+                    return "m"; //max input
+
+                } else if (length == 0) {
+
+                    console.log("input is empty");
+                    return "e"; //empty input
+                } else {
+                    com = com.replace(/[ \t]{2,}/gm, "");
+                    console.log("Valid Input");
+                    return com; //valid string
+                }
+            }
+            //edit function is for the moderators to change the posts data.
+            function Edit() {
+                $("#delete").removeAttr("hidden");
+                $("#ADMIN").attr("onclick", "DoneEdit()");
+                $("#ADMIN").html("Save Changes");
+                $("#report").attr("hidden", "true");
+
+                var titleEle = $("#postTitle");
+                var categoryEle = $("#postCategory");
+                var descEle = $("#postDesc");
+                var title = titleEle.text();
+                var category = categoryEle.text();
+                var desc = descEle.text();
+                // console.log(title + " " + category + " " + desc);
+
+                titleEle.html("");
+                titleEle.append('<input type="text" id="alterTitle" value="' + title + '">');
+                descEle.html("");
+                descEle.append('<textarea rows="2" id="alterDesc" cols="30">' + desc.substr(33) + '</textarea>');
+                categoryEle.html("");
+                categoryEle.append(' <select id="alterCate" name="category">');
+                $("#alterCate").append("<?php CategoryDropDown($link) ?>");
+            }
+            // updates the database when the moderator has finished editing.
+            function DoneEdit() {
+
+                $("#ADMIN").attr("onclick", "Edit()");
+                $("#ADMIN").html("Edit");
+                $("#report").removeAttr("hidden");
+                $("#delete").attr("hidden", "true");
+
+                var titleEle = $("#alterTitle");
+                var categoryEle = $("#alterCate");
+                var descEle = $("#alterDesc");
+                var title = titleEle.val();
+                var category = categoryEle.val();
+                var desc = descEle.val();
+                // console.log(title + " " + category + " " + desc);
+
+
+                var doneEdit = new XMLHttpRequest();
+                doneEdit.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText.substr(267);
+                        console.log(response);
+                        $("#postTitle").html("");
+                        $("#postTitle").append('<h5 class="card-title" style="color: #EFD469" id="postTitle">' + title + '</h5>');
+                        var dropDownTxt = $("#alterCate option:selected").text();
+                        $("#postCategory").html("");
+                        $("#postCategory").append(' <div class="card-text" style="text-align: center" id="postCategory">' + dropDownTxt + '</div>');
+                        $("#postDesc").html("");
+                        $("#postDesc").append('<div class="card-text" id="postDesc">' + desc + '</div>');
+
+                    }
+
+                };
+                doneEdit.open("POST", "EditPost.php", true);
+                doneEdit.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                doneEdit.send("postID=<?php echo $_GET["
+                    PostID "]; ?>&title=" + title + "&cate=" + category + "&desc=" + desc);
+            }
+
+            function DeletePost(PostID) {
+                if (confirm("Are you sure you want to delete this post?")) {
+                    var deletePost = new XMLHttpRequest();
+                    deletePost.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = this.responseText;
+                            var response = response.substr(267);
+
+                            window.location.replace("Home.php");
+                            console.log(response);
+
+                        }
+
+                    };
+                    deletePost.open("GET", "deletePost.php?postID=" + PostID, true);
+                    deletePost.send();
+                }
+            }
+
         </script>
     </head>
 
-    <body>
+    <body onload="LoadComments(<?php echo $_GET['PostID']; ?>)">
         <?php
       $postId = $_GET['PostID'];
       
@@ -255,6 +386,7 @@ if(!$_SESSION['loggedIn'] == "true"){
             $upVote= $row['Up_Vote'];
             $downVote= $row['Down_Vote'];
             $anon= $row['Anonymous'];
+            $staffId = $row['StaffID'];
         }
         
     $date = date("d-m-Y", strtotime($date));
@@ -262,65 +394,52 @@ if(!$_SESSION['loggedIn'] == "true"){
     }else{
         echo "Post does not exsist.";
         echo $query;
-    }
-      
-      
-      
-      
-      
-      
-      ?>
+    }  ?>
             <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
-            <ul>
-                <li>
-                    <a href="Home.php">Home</a></li>
-                <li style="float:right">
-                    <?php
-                if($_SESSION['loggedIn'] == true){
-                    echo '<li style="float:right">        
-                    <a href="Logout.php">Logout</a></li>';
-                }else {
-                    echo '
-                    <li style="float:right">
-                    <a href="Register.php">Register</a></li>
-                    <li style="float:right">
-                    <a href="Login.html">Sign In</a></li>
-                    <li>';
-                }  if($_SESSION['loggedIn'] == true)
-                {
-                    echo '<li>
-                    <li>
-                    <a href="">My Ideas</a></li>
-                    <li>
-                    <a href="">Edit Ideas</a></li>
-                    <li>
-                    <a href="IdeaSubmission.php">Add Ideas</a></li>
-                    ' ;
-                }
-                ?>
-
-                        <li>
-                            <a href="">Search Idea</a></li>
-            </ul>
+            
+        <div class="topnav" id="myTopnav">
+        <a href="Home.php">Home</a>
+        <a href="">Search Idea</a>
+        <?php
+            if($_SESSION['loggedIn'] == true){
+                    echo '<a style="float:right" href="Logout.php">Logout</a>';
+            }else {
+                echo '
+                <a style="float:right" href="Register.php">Register</a>
+                <a style="float:right" href="Login.html">Sign In</a>
+                ';
+            }  
+            if($_SESSION['loggedIn'] == true)
+            {
+                echo '
+                <a href="">My Ideas</a>
+                <a href="">Edit Ideas</a>
+                <a href="IdeaSubmission.php">Add Ideas</a>' ;
+            }
+            ?>
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i class="fa fa-bars"> </i>
+            </a>
+    </div>
 
             <div class="container">
                 <div class="card">
                     <div class="card-body">
 
-                        <h5 class="card-title" style="color: #EFD469"><?php echo $title; ?></h5>
-                        <h6  class="card-subtitle" style="color: white"><?php echo $department; ?></h6>
+                        <h5 class="card-title" style="color: #EFD469" id="postTitle"><?php echo $title; ?></h5>
+                        <h6 class="card-subtitle" style="color: white"><?php echo $department; ?></h6>
                         <p><br></p>
                         <div>
 
                             <div style="text-align: center"><u>Category</u></div>
-                            <div class="card-text" style="text-align: center">
+                            <div class="card-text" style="text-align: center" id="postCategory">
                                 <?php  echo $category; ?>
                             </div>
-                            
+
                             <p><br></p>
-                            
+
                             <div style="text-slign:left"><u>Description</u></div>
-                            <div class="card-text">
+                            <div class="card-text" id="postDesc">
                                 <?php  echo $desc; ?>
                             </div>
 
@@ -328,7 +447,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                             <p><br></p>
 
                             <div style="text-slign:left"><u>Date</u></div>
-                            <div class="card-text">
+                            <div class="card-text" id="postDate">
                                 <?php  echo $date; ?>
                             </div>
 
@@ -342,6 +461,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                                 echo $name;
                                 }else{
                                     echo "Anon";
+                                    
                                 } ?>
                             </div>
 
@@ -351,40 +471,54 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             <div class="buttons" style="color:white">
                                 <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "up");?> btn-sm">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span> Up
+                                   Up
                                     <?php echo $upVote; ?>
                                 </a>
                                 <a onclick="DownVote(<?php echo $_GET['PostID']; ?>)" id="dislikeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "down"); ?> btn-sm">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span> Down
+                                     Down
                                     <?php echo $downVote; ?>
                                 </a>
+                                <?php //Only shows the edit button for Admin, WAmanager and the coord only if the post is under their department. 
+                                //also if it is the users own post, they can edit
+                                if($_SESSION['role'] == "Admin"||$_SESSION['role'] == "QAmanager" || $_SESSION['role'] == "QAcoord" && $_SESSION['department'] == $department || $_SESSION['UID'] == $staffId){ ?>
+                                <a id="ADMIN" onclick="Edit()" class="btn btn-primary btn-sm right">
+                                     Edit
+                                </a>
+
+                                <?php } ?>
+
+                                <a id="report" class="btn btn-outline-warning btn-sm right">
+                                     Report
+                                </a>
+                                <a id="delete" hidden="true" onclick="DeletePost(<?php echo $_GET['PostID'] ?>)" class="btn btn-outline-danger btn-sm right">
+                                     Delete
+                                </a>
                             </div>
+
+
                         </div>
 
                     </div>
                 </div>
             </div>
-        
+
             <hr />
-                <h5 style="text-align:left">Insert your Comments</h5>
-                <textarea name="message" id="comment" rows="4">Insert comment.</textarea>
-                <div> <button class="button" style="float:right" onclick="Comment()" role="button">Submit Comment</button>
-                    <br /><br />
-                    
-                    
-                    <h5 style="text-align:left">All Comments</h5>
-                    
-
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-title"><u>Commenter Name</u> - Department</p>
-                            <div class="card-comment"> lorem alkdn alknlw nlnd alndawnid on oianwd iawnd oaiwnd oawdn oaiwdn oaw;'fn waiena ofhneoi hnfeoisf heoifjh oi</div><br />(Date Posted)
-                            <div id="tester">dadw</div>
-                        </div>
+            <h5 style="text-align:left">Insert your Comments</h5>
+            <textarea name="message" id="comment" rows="4" placeholder="Insert comment."></textarea>
+            <div> <button class="button" style="float:right" onclick="SubmitComment(<?php  echo $_GET['PostID']?>)" role="button">Submit Comment</button>
+                <br /><br />
 
 
-                    </div>
+
+                <h5 style="text-align:left">All Comments<span id='count'>(0)</span></h5>
+
+
+
+
+                <div id="comments">
+
                 </div>
+            </div>
 
     </body>
 
@@ -419,6 +553,26 @@ function SetStyle($styleToSet, $buttonType){
         
     }
     }
+                          
+    function CategoryDropDown($link){
+        /*Pulls the departments from the department table and displays it as a
+        drop down list */
+        
+        $query = "SELECT * FROM Category";
+        $result = mysqli_query($link, $query);
+        
+        if (mysqli_num_rows($result)){
+            while($row = mysqli_fetch_assoc($result)) {
+                echo ' <option  value=' . $row["CategoryID"] . '>' . $row["Category"] .         '</option>';
+                        
+            }
+        } else {
+            echo "No results.";
+        }
+    }
 
 
+                          
+                          
+                          
 ?>
