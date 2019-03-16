@@ -30,6 +30,8 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <link href="main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         .card-text {
             font-size: 14px;
@@ -83,13 +85,21 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
         .disabled {
             visibility: hidden;
         }
-        
-        
+
 
     </style>
 
 
     <script>
+        function responsive() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
         function UpVote(PostId) {
             <?php  if($_SESSION['loggedIn']){?>
 
@@ -204,37 +214,32 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-    <ul>
-        <li>
-            <a href="Home.php">Home</a></li>
-        <li>
-            <a href="">Search Idea</a></li>
-        <li style="float:right">
-            <?php
+    <div class="topnav" id="myTopnav">
+        <a href="Home.php">Home</a>
+        <a href="">Search Idea</a>
+        <?php
+
             if($_SESSION['loggedIn'] == true){
-                    echo '<li style="float:right">        
-                    <a href="Logout.php">Logout</a></li>';
+                    echo '<a style="float:right" href="Logout.php">Logout</a>';
             }else {
                 echo '
-                <li style="float:right">
-                <a href="Register.php">Register</a></li>
-                <li style="float:right">
-                <a href="Login.html">Sign In</a></li>
-                <li>';
+
+                <a style="float:right" href="Register.php">Register</a>
+                <a style="float:right" href="Login.html">Sign In</a>
+                ';
             }  
             if($_SESSION['loggedIn'] == true)
             {
-                echo '<li>
-                <li>
-                <a href="">My Ideas</a></li>
-                <li>
-                <a href="IdeaSubmission.php">Add Ideas</a></li>
-                ' ;
+                echo '
+                <a href="">My Ideas</a>
+                <a href="IdeaSubmission.php">Add Ideas</a>' ;
             }
             ?>
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i class="fa fa-bars"> </i>
+            </a>
+    </div>
 
-
-    </ul>
 
     <div id="Posts">
 
@@ -396,7 +401,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             {?>
         <span style=" position: absolute;font-size:12px; color:grey; float:left">
                  <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
+
+        <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
+
         <div>Post Count: <?php echo $_SESSION['postCount'];?> (All time)</div>
+
         <div></div></span>
         <?php }
             ?>

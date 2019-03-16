@@ -1,4 +1,4 @@
-html {
+    html {
     background: #e6e9e9;
     background-image: linear-gradient(270deg, rgb(230, 233, 233) 0%, rgb(216, 221, 221) 100%);
     -webkit-font-smoothing: antialiased;
@@ -77,7 +77,6 @@ h2 {
 table {
     border-collapse: collapse;
     width: 100%;
-    
 }
 
 th,
@@ -85,11 +84,11 @@ td {
     text-align: left;
     padding: 8px;
     vertical-align: middle;
-    background-color: rgba(9,49,69, 0.95);
+    background-color: rgba(9, 49, 69, 0.95);
     color: #EFD469;
-  
 }
-td{
+
+td {
     width: auto;
 }
 
@@ -132,7 +131,7 @@ samp {
     }
 }
 
-ul {
+.topnav {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -140,12 +139,8 @@ ul {
     background-color: #333;
 }
 
-li {
+.topnav a {
     float: left;
-}
-
-li a,
-.dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
@@ -153,14 +148,46 @@ li a,
     text-decoration: none;
 }
 
-li a:hover,
-.dropdown:hover .dropbtn {
+.topnav a:hover {
     background-color: red;
+    color: black;
 }
 
-li.dropdown {
-    display: inline-block;
+.active {
+    background-color: green;
+    color: white;
 }
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+    .topnav a {text-align: right}
+    
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+.topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
 
 .dropdown-content {
     display: none;
@@ -186,218 +213,257 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
+}
 * {
     box-sizing: border-box
-}
-
-
-/* Slideshow container */
-
-.slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
-}
-
-
-/* Hide the images by default */
-
-.mySlides {
-    display: none;
-}
-
-
-/* Next & previous buttons */
-
-.prev,
-.next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-
-/* Position the "next button" to the right */
-
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-
-/* On hover, add a black background color with a little bit see-through */
-
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-
-/* Caption text */
-
-.text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-}
-
-
-/* Number text (1/3 etc) */
-
-.numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-}
-
-
-/* The dots/bullets/indicators */
-
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active,
-.dot:hover {
-    background-color: #717171;
-}
-
-
-/* Fading animation */
-
-.fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-    from {
-        opacity: .4
     }
-    to {
-        opacity: 1
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
     }
-}
-
-@keyframes fade {
-    from {
-        opacity: .4
+    li {
+        float: left;
     }
-    to {
-        opacity: 1
+    li a,
+    .dropbtn {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
     }
-}
-
-.card-text {
-    font-size: 18px;
-    color: white;
-    max-height: 20px;
-    text-align: left;
-}
-
-.card {
-    height: inherit;
-    display: block;
-    margin: auto;
-    border-style: solid;
-    width: 85%;
-    border-width: 2px;
-    background-color: #093145;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding-bottom: 5px;
-    margin-top: 5px;
-}
-
-.card-body {
-    color: #EFD469;
-}
-
-.buttons {
-    bottom: 0;
-    padding-bottom: 13px;
-    padding-top: 5px;
-}
-
-.btn {
-    position: relative;
-}
-
-.pagination {
-    margin-top: 20px;
-}
-
-.pagButtons {
-    position: relative;
-    margin: 0 auto;
-}
-
-#date {
-    font-size: 12px;
-    text-align: right;
-    color: black;
-}
-
-.container {
-    padding: 0 0 0 0;
-    height: 500px;
-}
-
-textarea {
-    width: 100%;
-}
-
-.right {
-    float: right;
-    margin-right: 5px;
-}
-
-
-.textField{
-    width:60%;
-    
-   
-}
-@media (max-width: 620px) {
- .textField{
-    width:100%;
-   
-}
-} 
-.form-group{
-    margin-bottom: unset;
-}
-input[type=checkbox] {
-  transform: scale(1.5);
-}
-
-
-.err{
-     outline: none;
-    border-color: #9ecaed;
-    box-shadow: 0 0 10px #9ecaed;
-}
+    li a:hover,
+    .dropdown:hover .dropbtn {
+        background-color: red;
+    }
+    li.dropdown {
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+    .dropdown-content a:hover {
+        background-color: #f1f1f1
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    * {
+        box-sizing: border-box
+    }
+    /* Slideshow container */
+    .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+    }
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        margin-top: -22px;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    /* Caption text */
+    .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+    /* The dots/bullets/indicators */
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+    .active,
+    .dot:hover {
+        background-color: #717171;
+    }
+    /* Fading animation */
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+    @-webkit-keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+    @keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+    .card-text {
+        font-size: 18px;
+        color: white;
+        max-height: 20px;
+        text-align: left;
+    }
+    .card {
+        height: inherit;
+        display: block;
+        margin: auto;
+        border-style: solid;
+        width: 85%;
+        border-width: 2px;
+        background-color: #093145;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding-bottom: 5px;
+        margin-top: 5px;
+    }
+    .card-body {
+        color: #EFD469;
+    }
+    .buttons {
+        bottom: 0;
+        padding-bottom: 13px;
+        padding-top: 5px;
+    }
+    .btn {
+        position: relative;
+    }
+    .pagination {
+        margin-top: 20px;
+    }
+    .pagButtons {
+        position: relative;
+        margin: 0 auto;
+    }
+    #date {
+        font-size: 12px;
+        text-align: right;
+        color: black;
+    }
+    .container {
+        padding: 0 0 0 0;
+        height: 500px;
+    }
+    textarea {
+        width: 100%;
+    }
+    .right {
+        float: right;
+        margin-right: 5px;
+    }
+    .pagination {
+        margin-top: 20px;
+    }
+    .pagButtons {
+        position: relative;
+        margin: 0 auto;
+    }
+    #date {
+        font-size: 12px;
+        text-align: right;
+        color: black;
+    }
+    .container {
+        padding: 0 0 0 0;
+        height: 500px;
+    }
+    textarea {
+        width: 100%;
+    }
+    .right {
+        float: right;
+        margin-right: 5px;
+    }
+    .textField {
+        width: 60%;
+    }
+    @media (max-width: 620px) {
+        .textField {
+            width: 100%;
+        }
+    }
+    .form-group {
+        margin-bottom: unset;
+    }
+    input[type=checkbox] {
+        transform: scale(1.5);
+    }
+    .textField {
+        width: 60%;
+    }
+    @media (max-width: 620px) {
+        .textField {
+            width: 100%;
+        }
+    }
+    .form-group {
+        margin-bottom: unset;
+    }
+    input[type=checkbox] {
+        transform: scale(1.5);
+    }
+    .err {
+        outline: none;
+        border-color: #9ecaed;
+        box-shadow: 0 0 10px #9ecaed;
+    }
