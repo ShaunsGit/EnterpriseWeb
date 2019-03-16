@@ -104,7 +104,7 @@ $error = "";
                 <td>File Upload:
                 </td>
                 <td>
-                    <div class="custom-file textField">
+                    <div class="custom-file textField shadow">
                         <input type="file" class="custom-file-input shadow" name="file" id="file">
                         <label class="custom-file-label" id="fileHelp" for="inputGroupFile02">Choose file</label>
                         <small id="emailHelp" class="form-text ">You can upload a file to help support your idea!.(JPEG, GI PDF ...)</small>
@@ -114,6 +114,8 @@ $error = "";
                 <tr>
                     <td></td>
                     <td><input type="checkbox" name="anon" value="1"> Check This box to post anonymously.<br>
+                    <p></p>
+<!--                        <input type="checkbox" name="terms" value="1"> Check this box to agree to the <b><u>Terms and Conditions</u></b><br>-->
                     </td>
 
                 </tr>
@@ -132,12 +134,16 @@ $error = "";
 
     <?php 
        extract($_POST); // Extracts all post data into variables.
+//if ($_POST && !isset($_POST['terms'])){
+//    echo "please agree with the terms";
+//}else{
 if($_POST and $_SESSION['loggedIn'] == true ){
         // Prepared statement to upload the post to the Post table
         $ps =  $link->prepare("INSERT INTO Posts(StaffID, CategoryID, DepartmentID, UploadID, Title, Description, Date_Posted, Up_Vote, Down_Vote, Anonymous) VALUES(?,?,?,?,?,?,?,?,?,?)");
         //setting the the query
         $ps->bind_param("iiiisssiii", $StaffID, $CategoryID, $DepartmentID, $UploadID, $Title, $Description, $Date_Posted, $Up_Vote, $Down_Vote, $Anonymous);
         
+        //assigning the data to the values.
         //assigning the data to the values.
         $StaffID = $_SESSION['UID'];
         $CategoryID = (int)$category;
@@ -172,7 +178,7 @@ if($_POST and $_SESSION['loggedIn'] == true ){
                 mysqli_query($link,$query);
                 
                 EmailCoord($DepartmentID, $currPostId, $link);
-                header('Location: Home.php');
+                header("Location: Home.php");
                 exit;
                 
          
@@ -231,6 +237,7 @@ if($_POST and $_SESSION['loggedIn'] == true ){
         }
 
     }
+//} 
 
     
     function ValidateFileUpload(){
