@@ -38,7 +38,9 @@ if(mysqli_num_rows($result) > 0){
                 echo '<div class="card-body">';
                 echo '<p class="card-title"><u>'.$row['Name'].'</u> - '.$row['Department'].'</p>';
                 echo '<div class="card-comment">'.$row['Text'].'</div><br />Posted: '.$row['Date_Posted'];
+
                 echo '<a  id="comment-'.$row['CommentID'].'" onclick="DeleteComment('.$row['CommentID'].', '.$postID.')" hidden="true" class="btn btn-danger btn-sm right comment">Delete</a>';
+
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

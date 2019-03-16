@@ -13,6 +13,7 @@ $desc = $_REQUEST["desc"];
 
 
 
+
 $desc = preg_replace('/\s+/', ' ', $desc);
 
 $query = "Update Posts SET CategoryID=".$cate.", Title='".$title."', Description='".$desc."' WHERE PostID=".$postID;

@@ -11,6 +11,19 @@
     <meta name="keywords" content="">
 
     <link href="main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script>
+        function responsive() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+    </script>
 
 </head>
 
@@ -32,6 +45,21 @@
             <li>
                 <a href="">Search Idea</a></li>
     </ul>
+
+    <div class="topnav" id="myTopnav">
+        <a href="Home.php">Home</a>
+        <a href="">Search Idea</a>
+        <a href="">My Ideas</a>
+        <a href="">Edit Ideas</a>
+        <a href="IdeaSubmission.html">Add Ideas</a>
+        <a style="float:right" href="Register.php">Register</a>
+        <a style="float:right" href="Login.html">Sign In</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsive()">
+            <i class="fa fa-bars"> </i>
+        </a>
+    </div>
+
+
 </body>
 
 </html>

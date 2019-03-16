@@ -36,6 +36,7 @@ setcookie("email", "", time() + (86400 * 30), "/");
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
         <link href="main.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <style>table {
@@ -47,16 +48,17 @@ setcookie("email", "", time() + (86400 * 30), "/");
 
     <body>
         <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
-        <ul>
-            <li>
-                <a href="Home.php">Home</a></li>
-            <li style="float:right">
-                <a href="Register.php">Register</a></li>
-            <li style="float:right">
-                <a href="Login.html">Sign In</a></li>
-            <li>
-                <a href="">Search Idea</a></li>
-        </ul>
+
+
+        <div class="topnav" id="myTopnav">
+                <a href="Home.php">Home</a>
+                <a href="">Search Idea</a>
+                <a style="float:right" href="Register.php" class="active">Register</a>
+                <a style="float:right" href="Login.html">Sign In</a>
+                <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                    <i class="fa fa-bars"> </i>
+                </a>
+        </div>
         <!-- Registration Form -->
         <form action="RegisterAuth.php" method="post">
             <table width="495" height="232" border="0">
@@ -134,6 +136,17 @@ setcookie("email", "", time() + (86400 * 30), "/");
 
         </form>
           <script>
+
+              
+              function responsive() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+
 
            
             $("form").submit(function(e) {

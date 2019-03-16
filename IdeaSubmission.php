@@ -30,39 +30,55 @@ $error = "";
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
-        <link href="main.css" rel="stylesheet"/>
+
+        <link href="main.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script>
+            function responsive() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+
+        </script>
+
 
     </head>
 
     <body>
+
         <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
-        <ul>
-            <li>
-                <a href="Home.php">Home</a></li>
-            <li>
-                <a href="">Search Idea</a></li>
-            <?php if($_SESSION['loggedIn'] == true){
-    echo '<li style="float:right">
-    <a href="Logout.php">Logout</a></li>';
-}else {
-    echo '
-    <li style="float:right">
-    <a href="Register.php">Register</a></li>
-    <li style="float:right">
-    <a href="Login.html">Sign In</a></li>
-    <li>';
-}
-                ?>
-            <li>
-                <a href="">My Ideas</a></li>
-          
-            <li>
-                <a href="IdeaSubmission.php">Add Ideas</a></li>
-            
-        </ul>
+
+        <div class="topnav" id="myTopnav">
+            <a href="Home.php">Home</a>
+            <a href="">Search Idea</a>
+            <?php
+            if($_SESSION['loggedIn'] == true){
+                    echo '<a style="float:right" href="Logout.php">Logout</a>';
+            }else {
+                echo '
+                <a style="float:right" href="Register.php">Register</a>
+                <a style="float:right" href="Login.html">Sign In</a>
+                ';
+            }  
+            ?>
+                <a href="">My Ideas</a>
+                <a href="IdeaSubmission.php" class="active">Add Ideas</a>
+                <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                    <i class="fa fa-bars"> </i>
+                </a>
+        </div>
+
         <h1 style="background-color:rgba(9,49,69, 0.95); margin-bottom:0px;color:#EFD469">Submit Idea</h1>
         <form action="IdeaSubmission.php" method="post" enctype="multipart/form-data">
-            <table width="495" height="232" border="0"><tr><td> <label for="title">Title:</label></td>
+            <table width="495" height="232" border="0">
+                <tr>
+                    <td> <label for="title">Title:</label></td>
+
                     <td>
                         <div class="form-group">
                             <input id="title" size="25" name="title" type="text" placeholder="Enter title (Case Sensitive.)" class="form-control textField form-control-sm shadow">
@@ -83,7 +99,9 @@ $error = "";
                     <td>Department: </td>
                     <td>
                         <div class="form-group">
+
                             <input size="25" type="text" style="background-color: gainsboro;"   name="departmentvalue" id="readOnly" class="form-control textField form-control-sm shadow" value="<?php echo $_SESSION['department']; ?>" readonly/>
+
                             <input type="hidden" name="department" value="<?php echo $_SESSION['departmentID']; ?>" />
                         </div>
                     </td>
@@ -104,7 +122,9 @@ $error = "";
                 <td>File Upload:
                 </td>
                 <td>
+
                     <div class="custom-file textField shadow">
+
                         <input type="file" class="custom-file-input shadow" name="file" id="file">
                         <label class="custom-file-label" id="fileHelp" for="inputGroupFile02">Choose file</label>
                         <small id="emailHelp" class="form-text ">You can upload a file to help support your idea!.(JPEG, GI PDF ...)</small>
@@ -114,8 +134,10 @@ $error = "";
                 <tr>
                     <td></td>
                     <td><input type="checkbox" name="anon" value="1"> Check This box to post anonymously.<br>
+
                     <p></p>
 <!--                        <input type="checkbox" name="terms" value="1"> Check this box to agree to the <b><u>Terms and Conditions</u></b><br>-->
+
                     </td>
 
                 </tr>
@@ -124,12 +146,15 @@ $error = "";
                         <div class="input-group mb-3">
 
                         </div>
+
                     </td><td></td>
+
                 </tr>
             </table>
             <button class="button" type="submit"> Submit Post</button>
         </form>
     </body>
+
     </html>
 
     <?php 
@@ -178,7 +203,9 @@ if($_POST and $_SESSION['loggedIn'] == true ){
                 mysqli_query($link,$query);
                 
                 EmailCoord($DepartmentID, $currPostId, $link);
+
                 header("Location: Home.php");
+
                 exit;
                 
          
@@ -237,7 +264,9 @@ if($_POST and $_SESSION['loggedIn'] == true ){
         }
 
     }
+
 //} 
+
 
     
     function ValidateFileUpload(){
