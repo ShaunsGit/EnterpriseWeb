@@ -440,7 +440,7 @@ if(!$_SESSION['loggedIn'] == "true"){
             {
                 echo '
                 <a href="">My Ideas</a>
-                <a href="">Edit Ideas</a>
+             
                 <a href="IdeaSubmission.php">Add Ideas</a>' ;
             }
             ?>
