@@ -162,12 +162,12 @@ samp {
   display: none;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
     .topnav a {text-align: right}
     
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
     float: right;
@@ -175,7 +175,7 @@ samp {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -467,3 +467,6 @@ samp {
         border-color: #9ecaed;
         box-shadow: 0 0 10px #9ecaed;
     }
+.green{
+ color: limegreen !important;
+}

@@ -28,29 +28,11 @@
 </head>
 
 <body>
-    <ul>
-        <li>
-            <a href="Home.php">Home</a></li>
-        <li style="float:right">
-            <a href="Register.php">Register</a></li>
-        <li style="float:right">
-            <a href="Login.html">Sign In</a></li>
-        <li>
-            <li>
-                <a href="">My Ideas</a></li>
-            <li>
-                <a href="">Edit Ideas</a></li>
-            <li>
-                <a href="IdeaSubmission.html">Add Ideas</a></li>
-            <li>
-                <a href="">Search Idea</a></li>
-    </ul>
+   
 
     <div class="topnav" id="myTopnav">
         <a href="Home.php">Home</a>
         <a href="">Search Idea</a>
-        <a href="">My Ideas</a>
-        <a href="">Edit Ideas</a>
         <a href="IdeaSubmission.html">Add Ideas</a>
         <a style="float:right" href="Register.php">Register</a>
         <a style="float:right" href="Login.html">Sign In</a>
@@ -129,10 +111,7 @@ $result = mysqli_query($link, $query);
      <form action="Login.html" method="post">
             <button type="submit" name="backToLogin" id="backToLogin" class="buttonRed">Back to Login</button>
 
-     <form action="Index.html" method="post">
-            <button type="submit" name="backToLogin" id="backToLogin" class="">Back to Login</button>
 
-        </form>
     ';
     
 }

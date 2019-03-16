@@ -234,6 +234,11 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                 <a href="">My Ideas</a>
                 <a href="IdeaSubmission.php">Add Ideas</a>' ;
             }
+            if($_SESSION['role'] == "Admin" or $_SESSION['role'] == "QAmanager")
+            {
+                echo '
+                <a href="Management/login.php" class="green">Management</a>' ;
+            }
             ?>
             <a href="javascript:void(0);" class="icon" onclick="responsive()">
                 <i class="fa fa-bars"> </i>
