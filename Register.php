@@ -48,16 +48,8 @@ setcookie("email", "", time() + (86400 * 30), "/");
 
     <body>
         <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
-        <!--<ul>
-            <li>
-                <a href="Home.php">Home</a></li>
-            <li style="float:right">
-                <a href="Register.php">Register</a></li>
-            <li style="float:right">
-                <a href="Login.html">Sign In</a></li>
-            <li>
-                <a href="">Search Idea</a></li>
-        </ul>-->
+
+
         <div class="topnav" id="myTopnav">
                 <a href="Home.php">Home</a>
                 <a href="">Search Idea</a>
@@ -144,6 +136,7 @@ setcookie("email", "", time() + (86400 * 30), "/");
 
         </form>
           <script>
+
               
               function responsive() {
                 var x = document.getElementById("myTopnav");
@@ -153,6 +146,7 @@ setcookie("email", "", time() + (86400 * 30), "/");
                     x.className = "topnav";
                 }
             }
+
 
            
             $("form").submit(function(e) {

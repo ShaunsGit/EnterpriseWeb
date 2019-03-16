@@ -132,13 +132,16 @@ samp {
     }
 }
 
+
 .topnav {
+
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
 }
+
 
 
 .topnav a {
@@ -189,7 +192,7 @@ samp {
     display: block;
     text-align: left;
   }
-}
+
 
 .dropdown-content {
     display: none;
@@ -374,6 +377,37 @@ samp {
 
 .btn {
     position: relative;
+
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagButtons {
+    position: relative;
+    margin: 0 auto;
+}
+
+#date {
+    font-size: 12px;
+    text-align: right;
+    color: black;
+}
+
+.container {
+    padding: 0 0 0 0;
+    height: 500px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.right {
+    float: right;
+    margin-right: 5px;
+
 }
 
 .pagination {
@@ -405,6 +439,24 @@ textarea {
     margin-right: 5px;
 }
 
+
+.textField{
+    width:60%;
+    
+   
+}
+@media (max-width: 620px) {
+ .textField{
+    width:100%;
+   
+}
+} 
+.form-group{
+    margin-bottom: unset;
+}
+input[type=checkbox] {
+  transform: scale(1.5);
+}
 
 .textField{
     width:60%;

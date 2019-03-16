@@ -33,6 +33,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
 
 
+
         <link href="main.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -47,7 +48,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                     x.className = "topnav";
                 }
             }
-            
+
             // downvote function check to see if the user has voted and puts through the vote if they havent
             function DownVote(PostId) {
                 <?php  if($_SESSION['loggedIn']){?>
@@ -185,7 +186,6 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                             console.log("1: " + response);
                             LoadComments(PostID);
-                           
 
 
 
@@ -203,7 +203,9 @@ if(!$_SESSION['loggedIn'] == "true"){
             // gets all comments for the specific post. 
             function LoadComments(PostID) {
                 $("#comments").html("");
-                   getCommentCount(PostID);
+
+                getCommentCount(PostID);
+
 
 
                 var getComments = new XMLHttpRequest();
@@ -217,7 +219,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                         <?php if($_SESSION['role']== "Admin"){ ?>
                         $('.comment').removeAttr("hidden");
                         <?php } ?>
-                     
+
 
                     }
 
@@ -231,16 +233,16 @@ if(!$_SESSION['loggedIn'] == "true"){
             }
 
             function getCommentCount(PostID) {
-                
+
                 var getCommentCount = new XMLHttpRequest();
                 getCommentCount.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = this.responseText;
                         var response = response.substr(267);
                         console.log(response);
-                        $('#count').html("("+response+")");
-                        
-                   
+
+                        $('#count').html("(" + response + ")");
+
                     }
 
                 };
@@ -282,13 +284,15 @@ if(!$_SESSION['loggedIn'] == "true"){
                 var descEle = $("#postDesc");
                 var title = titleEle.text();
                 var category = categoryEle.text();
-                var desc = descEle.text();
-                // console.log(title + " " + category + " " + desc);
 
+                var desc = descEle.text().trim();
+                // console.log(title + " " + category + " " + desc);
+                console.log(desc);
                 titleEle.html("");
                 titleEle.append('<input type="text" id="alterTitle" value="' + title + '">');
                 descEle.html("");
-                descEle.append('<textarea rows="2" id="alterDesc" cols="30">' + desc.substr(33) + '</textarea>');
+                descEle.append('<textarea rows="2" id="alterDesc" cols="30">' + desc +'</textarea>');
+
                 categoryEle.html("");
                 categoryEle.append(' <select id="alterCate" name="category">');
                 $("#alterCate").append("<?php CategoryDropDown($link) ?>");
@@ -329,8 +333,9 @@ if(!$_SESSION['loggedIn'] == "true"){
                 doneEdit.open("POST", "EditPost.php", true);
                 doneEdit.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                doneEdit.send("postID=<?php echo $_GET["
-                    PostID "]; ?>&title=" + title + "&cate=" + category + "&desc=" + desc);
+
+                doneEdit.send("postID=<?php echo $_GET["PostID"]; ?>&title=" + title + "&cate=" + category + "&desc=" + desc);
+
             }
 
             function DeletePost(PostID) {
@@ -351,6 +356,27 @@ if(!$_SESSION['loggedIn'] == "true"){
                     deletePost.send();
                 }
             }
+
+
+
+            function DeleteComment(comID,postId) {
+                if (confirm("Are you sure you want to delete this comment?")) {
+                    var deleteComment = new XMLHttpRequest();
+                    deleteComment.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = this.responseText;
+                            var response = response.substr(267);
+                            console.log(response);
+                            LoadComments(<?php echo $_GET['PostID']; ?>)
+
+                        }
+
+                    };
+                    deleteComment.open("GET", "DeleteComment.php?comID=" + comID + "&postID=" + postId, true);
+                    deleteComment.send();
+                }
+            }
+
 
         </script>
     </head>
@@ -396,6 +422,7 @@ if(!$_SESSION['loggedIn'] == "true"){
         echo $query;
     }  ?>
             <img class="img1" alt="A screenshot showing CSS Quick Edit" src="mainpic1.jpg">
+
             
         <div class="topnav" id="myTopnav">
         <a href="Home.php">Home</a>
@@ -421,6 +448,7 @@ if(!$_SESSION['loggedIn'] == "true"){
                 <i class="fa fa-bars"> </i>
             </a>
     </div>
+
 
             <div class="container">
                 <div class="card">
@@ -470,11 +498,13 @@ if(!$_SESSION['loggedIn'] == "true"){
 
 
                             <div class="buttons" style="color:white">
-                                <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "up");?> btn-sm">
+
+                                <a onclick="UpVote(<?php echo $_GET['PostID'];?>)" id="likeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style,"up");?> btn-sm">
                                    Up
                                     <?php echo $upVote; ?>
                                 </a>
-                                <a onclick="DownVote(<?php echo $_GET['PostID']; ?>)" id="dislikeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style, "down"); ?> btn-sm">
+                                <a onclick="DownVote(<?php echo $_GET['PostID']; ?>)" id="dislikeBtn-<?php echo $_GET['PostID']; ?>" class="btn btn-<?php echo SetStyle($style,"down"); ?> btn-sm">
+
                                      Down
                                     <?php echo $downVote; ?>
                                 </a>
@@ -487,9 +517,10 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                                 <?php } ?>
 
-                                <a id="report" class="btn btn-outline-warning btn-sm right">
-                                     Report
-                                </a>
+
+
+                                <button id="report" type="button" class="btn btn-outline-warning btn-sm right" data-toggle="modal" data-target="#Modal">Report</button>
+
                                 <a id="delete" hidden="true" onclick="DeletePost(<?php echo $_GET['PostID'] ?>)" class="btn btn-outline-danger btn-sm right">
                                      Delete
                                 </a>
@@ -510,15 +541,43 @@ if(!$_SESSION['loggedIn'] == "true"){
 
 
 
-                <h5 style="text-align:left">All Comments<span id='count'>(0)</span></h5>
+
+                <h5 style="text-align:left">All Comments<span id='count'>()</span></h5>
+
 
 
 
 
                 <div id="comments">
 
+
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Report this Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                        </div>
+                        <div class="modal-body">
+                            <p> Report conent is going to go here!</p>
+                            <p> text area</p>
+                            <p> drop down box</p>
+                            <p> submit button</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
     </body>
 
