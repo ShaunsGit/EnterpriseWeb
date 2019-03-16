@@ -307,7 +307,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                         <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
 
 
-                        <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
+                        <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'</p>
                         <div class="buttons">
                             <a onclick="UpVote('.$row['PostID'].')" id="likeBtn-'.$row['PostID'].'" class="btn btn-'.SetStyle($style, "up").' btn-sm">
                                 <span class="glyphicon glyphicon-thumbs-up"></span> Up '.$row["Up_Vote"].'
@@ -335,7 +335,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
 
 
-                          <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'...</p>
+                          <p class="card-text">'. substr($row["Description"], 0 , $stringLimit).'</p>
                         <div class="buttons">
                          <a onclick="UpVote('.$row['PostID'].')"  id="likeBtn-'.$row['PostID'].'" class="btn btn-'.SetStyle($style, "up").' btn-sm">
                                 <span class="glyphicon glyphicon-thumbs-up"></span> Up '.$row["Up_Vote"].'
@@ -367,7 +367,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
                                     <h6 class="card-subtitle" style="color: white">'. $row["Department"] .'</h6>
 
 
-                                    <p class="card-text">' . substr($row["Description"], 0 , $stringLimit) . '...</p>
+                                    <p class="card-text">' . substr($row["Description"], 0 , $stringLimit) . '</p>
                                     <div class="buttons">
                                         <a onclick="UpVote('.$row['PostID'].')" id="likeBtn-'.$row['PostID'].'" class="btn btn-'.SetStyle($style, "up").' btn-sm">
                                             <span class="glyphicon glyphicon-thumbs-up"></span> Up '.$row["Up_Vote"].'</a>
@@ -396,7 +396,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             {?>
         <span style=" position: absolute;font-size:12px; color:grey; float:left">
                  <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
-        <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
+        <div>Post Count: <?php echo $_SESSION['postCount'];?> (All time)</div>
         <div></div></span>
         <?php }
             ?>
