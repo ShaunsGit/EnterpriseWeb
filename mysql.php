@@ -9,9 +9,9 @@
     
     <?php
 $host    = 'mysql.cms.gre.ac.uk';
-$user    = 'sm2418r';
-$passwd  = 'sm2418r';
-$dbName  = 'mdb_sm2418r';
+$user    = 'sm5896j';
+$passwd  = 'sm5896j';
+$dbName  = 'mdb_sm5896j';
 ?>
     </body>
 </html>

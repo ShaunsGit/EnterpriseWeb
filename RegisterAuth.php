@@ -25,7 +25,7 @@ extract($_POST);
         if (isEmailAvailable($email, $link)){
             // Call the isEmailAvailable functions to see if email is available.
             if($confirmPass == $pass){
-
+                try{
                 $hash = password_hash($pass, PASSWORD_DEFAULT); //hashes the password
                 
                 $ps =$link->prepare("INSERT INTO Staff (DepartmentID, RoleID, Email, Name, Password, Date_Joined, Last_Logged, Post_Count, Comment_Count, Active) Values(?,?,?,?,?,?,?,?,?,?)");
@@ -50,7 +50,10 @@ extract($_POST);
                   setcookie("email", urldecode($Email), time() + (86400 * 30), "/"); // 86400 = 1 day
                  header("location: Login.html");
              }
-
+                }
+                catch(PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+}
            
         } else {
             echo "<br />Password was not the same";
@@ -80,4 +83,3 @@ extract($_POST);
     }
 
 ?>
-                
