@@ -237,7 +237,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             if($_SESSION['role'] == "Admin" or $_SESSION['role'] == "QAmanager")
             {
                 echo '
-                <a href="Management/login.php" class="green">Management</a>' ;
+                <a href="Admin/Dashboard.php" class="green">Admin Dashboard</a>' ;
             }
             ?>
             <a href="javascript:void(0);" class="icon" onclick="responsive()">
