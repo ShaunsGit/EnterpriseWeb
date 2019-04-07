@@ -86,7 +86,6 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             visibility: hidden;
         }
 
-
     </style>
 
 
@@ -216,7 +215,7 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
 
     <div class="topnav" id="myTopnav">
         <a href="Home.php">Home</a>
-        <a href="">Search Idea</a>
+        <a href="Search.php">Search Idea</a>
         <?php
 
             if($_SESSION['loggedIn'] == true){
@@ -231,13 +230,13 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             if($_SESSION['loggedIn'] == true)
             {
                 echo '
-                <a href="">My Ideas</a>
+                <a href="MyIdeas.php">My Ideas</a>
                 <a href="IdeaSubmission.php">Add Ideas</a>' ;
             }
             if($_SESSION['role'] == "Admin" or $_SESSION['role'] == "QAmanager")
             {
                 echo '
-                <a href="Admin/Dashboard.php" class="green">Admin Dashboard</a>' ;
+                <a href="Management/login.php" class="green">Management</a>' ;
             }
             ?>
             <a href="javascript:void(0);" class="icon" onclick="responsive()">
@@ -406,8 +405,6 @@ $link = mysqli_connect($host, $user, $passwd, $dbName) or
             {?>
         <span style=" position: absolute;font-size:12px; color:grey; float:left">
                  <div>Last Logged:<?php echo $_SESSION['lastLogged']; ?></div>
-
-        <div>Post Count: <?php echo $_SESSION['postCount'];?></div>
 
         <div>Post Count: <?php echo $_SESSION['postCount'];?> (All time)</div>
 
