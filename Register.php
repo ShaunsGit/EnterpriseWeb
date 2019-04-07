@@ -52,7 +52,7 @@ setcookie("email", "", time() + (86400 * 30), "/");
 
         <div class="topnav" id="myTopnav">
                 <a href="Home.php">Home</a>
-                <a href="">Search Idea</a>
+                <a href="Search.php">Search Idea</a>
                 <a style="float:right" href="Register.php" class="active">Register</a>
                 <a style="float:right" href="Login.html">Sign In</a>
                 <a href="javascript:void(0);" class="icon" onclick="responsive()">

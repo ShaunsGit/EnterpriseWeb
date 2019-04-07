@@ -3,7 +3,10 @@
 <?php
 session_start();
 //ini_set('display_errors',1);
-//    error_reporting(E_ALL);
+ 
+       
+error_reporting(E_ALL);
+    ini_set('display_errors', TRUE);
 require 'mysql.php';
 $link = mysqli_connect($host, $user, $passwd, $dbName) or 
                 die('Failed to connect to MySQL server. ' . mysqli_connect_error() .'<br/>');
@@ -55,7 +58,7 @@ $error = "";
 
         <div class="topnav" id="myTopnav">
             <a href="Home.php">Home</a>
-            <a href="">Search Idea</a>
+            <a href="Search.php">Search Idea</a>
             <?php
             if($_SESSION['loggedIn'] == true){
                     echo '<a style="float:right" href="Logout.php">Logout</a>';
@@ -159,9 +162,7 @@ $error = "";
 
     <?php 
        extract($_POST); // Extracts all post data into variables.
-//if ($_POST && !isset($_POST['terms'])){
-//    echo "please agree with the terms";
-//}else{
+    $complete = false;
 if($_POST and $_SESSION['loggedIn'] == true ){
         // Prepared statement to upload the post to the Post table
         $ps =  $link->prepare("INSERT INTO Posts(StaffID, CategoryID, DepartmentID, UploadID, Title, Description, Date_Posted, Up_Vote, Down_Vote, Anonymous) VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -203,10 +204,11 @@ if($_POST and $_SESSION['loggedIn'] == true ){
                 mysqli_query($link,$query);
                 
                 EmailCoord($DepartmentID, $currPostId, $link);
-
-                header("Location: Home.php");
-
-                exit;
+                 
+                echo "<script type='text/javascript'> document.location = 'Home.php'; </script>";
+                exit();
+   
+               
                 
          
             }
@@ -262,6 +264,11 @@ if($_POST and $_SESSION['loggedIn'] == true ){
                 }
             }
         }
+    
+    
+    
+    
+  
 
     }
 

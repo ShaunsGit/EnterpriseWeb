@@ -162,7 +162,7 @@ if(!$_SESSION['loggedIn'] == "true"){
 
                 if (isValid == "e" || isValid == "m") {
                     //error if empty or exceeds maximum 
-                    $("#comment").css("background-color", "red");
+                    $("#comment").css("background-color", "white");
 
                     if (isValid == "e") {
                         alert("The Comment can not be empty.\nInvalid input.");
