@@ -1,9 +1,12 @@
 # GucciGang
 Enterprise Web Software Development
+
+
+
 Functionality – Whats working
 -Merged with front end users can vote
 -Login Functionality
--Email Functionality
+- Email Functionality
 -
 
 -Admin panel merged to front end
