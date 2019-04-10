@@ -4,8 +4,8 @@ Enterprise Web Software Development
 
 
 Functionality – Whats working
--Merged with front end users can vote
--Login Functionality
+- Merged with front end users can vote
+- Login Functionality
 - Email Functionality
 -
 
