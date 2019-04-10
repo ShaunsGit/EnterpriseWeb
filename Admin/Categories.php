@@ -158,7 +158,7 @@ if(isset($_POST["Submit"])){
       <table class="table table-striped table-hover">
         <thead class="thead-dark">
           <tr>
-            <th>No. </th>
+            
             <th> Category Name</th>
             <th> Description</th>
             <th>Created By</th>
@@ -183,7 +183,7 @@ if(isset($_POST["Submit"])){
       ?>
       <tbody>
         <tr>
-          <td><?php echo htmlentities($SrNo); ?></td>
+    
           <td><?php echo htmlentities($CategoryName); ?></td>
           <td><?php echo htmlentities($Desc); ?></td>
           <td><?php echo htmlentities($CreatorName); ?></td>

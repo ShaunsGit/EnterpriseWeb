@@ -5,7 +5,7 @@
 // optional where query
 $where = '';
 // filename for export
-$csv_filename = 'Number_of_post_per_department'.$db_record.'_'.date('Y-m-d').'.csv';
+$csv_filename = 'Number_of_post_per_category'.$db_record.'_'.date('Y-m-d').'.csv';
 // database variables
 $hostname = "mysql.cms.gre.ac.uk";
 $user = "sm5896j";
@@ -19,7 +19,7 @@ if (mysqli_connect_errno()) {
 // create empty variable to be filled with export data
 $csv_export = '';
 // query to get data from database
-$query = mysqli_query($conn, "SELECT d.DepartmentID, d.Department, coalesce(oc.Count, 0) as Number_Of_Post from Department d left join ( select DepartmentID, count(*) as Count from Posts group by DepartmentID ) oc on (d.DepartmentID = oc.DepartmentID)".$db_record." ".$where);
+$query = mysqli_query($conn, "SELECT c.CategoryID, c.Category, coalesce(oc.Count, 0) as Number_Of_Post from Category c left join ( select CategoryID, count(*) as Count from Posts group by CategoryID ) oc on (c.CategoryID = oc.CategoryID)".$db_record." ".$where);
 $field = mysqli_field_count($conn);
 // create line with field names
 for($i = 0; $i < $field; $i++) {

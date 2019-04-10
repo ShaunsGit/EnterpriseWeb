@@ -27,7 +27,7 @@
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="/" class="navbar-brand"> GucciGang Enterprise</a>
+      <a href="../Home.php" class="navbar-brand"> GucciGang Enterprise</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -61,7 +61,7 @@
 
         <!-- Main Area Start-->
         <div class="col-sm-8 ">
-          <h1>View Post</h1>
+          <h1>Latest Ideas</h1>
           <h1 class="lead"></h1>
           <?php
            echo ErrorMessage();
@@ -130,7 +130,7 @@
               <p class="card-text">
                 <?php if (strlen($PostDescription)>150) { $PostDescription = substr($PostDescription,0,150)."...";} echo htmlentities($PostDescription); ?></p>
               <a href="FullPost.php?id=<?php echo $PostId; ?>" style="float:right;">
-                <span class="btn btn-info">Read More &rang;&rang; </span>
+                <span class="btn btn-info">Read More  </span>
               </a>
             </div>
           </div>
@@ -194,12 +194,12 @@
           <br>
          <div class="card">
             <div class="card-header bg-info text-white">
-              <h2 class="lead"> Recent Posts</h2>
+              <h2 class="lead"> Highest Rated Post</h2>
             </div>
             <div class="card-body">
               <?php
               global $ConnectingDB;
-              $sql= "SELECT * FROM Posts ORDER BY PostID desc LIMIT 0,5";
+              $sql= "SELECT * FROM Posts ORDER BY Up_Vote desc LIMIT 0,5";
               $stmt= $ConnectingDB->query($sql);
               while ($DataRows=$stmt->fetch()) {
                 $Id     = $DataRows['PostID'];

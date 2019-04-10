@@ -18,14 +18,16 @@
           </div>
             
             
-          <div class="col-lg-3 mb-2 ">
-            <a href="Admins.php" class="btn btn-warning btn-block">
-              <i class="fas fa-user-plus"></i> Add Members
+    
+          <div class="col-lg-3 mb-2">
+            <a href="Departments.php" class="btn btn-info btn-block">
+              <i class="fas fa-check"></i> Add Departments
             </a>
           </div>
-          <div class="col-lg-3 mb-2">
-            <a href="Comments.php" class="btn btn-success btn-block">
-              <i class="fas fa-check"></i> Approve Comments
+            
+                  <div class="col-lg-3 mb-2 ">
+            <a href="Admins.php" class="btn btn-warning btn-block">
+              <i class="fas fa-user-plus"></i> Add Members
             </a>
           </div>
 
@@ -120,7 +122,8 @@
 FROM Posts 
 Left JOIN Staff
 ON Posts.StaffID =Staff.StaffID
-ORDER BY Up_Vote DESC";
+ORDER BY Up_Vote DESC
+LIMIT 10";
       $Execute =$ConnectingDB->query($sql);
    
       while ($DataRows=$Execute->fetch()) {

@@ -8,25 +8,24 @@
           </div>
           <div class="col-lg-3 mb-2">
             <a href="AddNewPost.php" class="btn btn-primary btn-block">
-              <i class="fas fa-edit"></i> Add Post
+              <i class="fas fa-edit"></i> Add New Post
             </a>
           </div>
           <div class="col-lg-3 mb-2">
             <a href="Categories.php" class="btn btn-info btn-block">
-              <i class="fas fa-folder-plus"></i> Add Category
-            </a>
-          </div>
-            <div class="col-lg-3 mb-2">
-            <a href="Departments.php" class="btn btn-info btn-block">
-              <i class="fas fa-check"></i> Add Departments
+              <i class="fas fa-folder-plus"></i> Add New Category
             </a>
           </div>
           <div class="col-lg-3 mb-2 ">
             <a href="Admins.php" class="btn btn-warning btn-block">
-              <i class="fas fa-user-plus"></i> Add Members
+              <i class="fas fa-user-plus"></i> Add New Admin
             </a>
           </div>
-   
+          <div class="col-lg-3 mb-2">
+            <a href="Comments.php" class="btn btn-success btn-block">
+              <i class="fas fa-check"></i> Approve Comments
+            </a>
+          </div>
 
         </div>
       </div>
@@ -105,13 +104,11 @@
             
                 <th>Title</th>
                   <th>Description</th>
-                   <th>Department</th>
-                   <th>Category</th>
                   <th>Thumbs Up</th>
                       <th>Thumbs Down</th>
                      <th>File</th>
                    <th>Image</th>
-                   <th>Anon</th>
+                   <th>Anonymous</th>
                   <th>Action</th>
                   <th>Preview</th>
               
@@ -120,21 +117,8 @@
               </tr>
             </thead>
                 <?php
-              
-              
-              
-              
-              
       global $ConnectingDB;
-      $sql = "SELECT Posts.PostID, Posts.Title, Posts.Description, Posts.Up_Vote, Posts.Down_Vote, Posts.Anonymous, Posts.Image, Posts.File, Posts.Date_Posted, Category.Category, Department.Department
-FROM Posts 
-Left JOIN Category
-ON Posts.CategoryID =Category.CategoryID
-Left JOIN Department
-ON Posts.DepartmentID =Department.DepartmentID
-ORDER BY Date_Posted
-";
-              
+      $sql = "SELECT * FROM Posts";
       $Execute =$ConnectingDB->query($sql);
    
       while ($DataRows=$Execute->fetch()) {
@@ -142,8 +126,6 @@ ORDER BY Date_Posted
           
         $Title = $DataRows["Title"];
           $Desc = $DataRows["Description"];
-           $Dept = $DataRows["Department"];
-           $Cat = $DataRows["Category"];
      $Thumbs_up = $DataRows["Up_Vote"];
            $Thumbs_down = $DataRows["Down_Vote"];
            $FileName     = $DataRows["File"];
@@ -159,9 +141,7 @@ ORDER BY Date_Posted
           
          
           <td><?php echo htmlentities($Title); ?></td>
-             <td> <?php echo mb_strimwidth($Desc, 0, 50, "..."); ?></td>
-               <td><?php echo htmlentities($Dept); ?></td>
-              <td><?php echo htmlentities($Cat); ?></td>
+             <td><?php echo htmlentities($Desc); ?></td>
               <td><span class="badge badge-success"><?php echo htmlentities($Thumbs_up); ?></td>
          <td><span class="badge badge-danger"><?php echo htmlentities($Thumbs_down); ?></td>
     

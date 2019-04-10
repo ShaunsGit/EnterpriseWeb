@@ -69,7 +69,7 @@ if (strlen($AHeadline)>30) {
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="/" class="navbar-brand"> GucciGang Enterprise</a>
+      <a href="../Home.php" class="navbar-brand"> GucciGang Enterprise</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -136,7 +136,7 @@ if (strlen($AHeadline)>30) {
           <h3> <?php echo $ExistingName; ?></h3>
         </div>
         <div class="card-body">
-          <img src="images/<?php echo $ExistingImage; ?>" class="block img-fluid mb-3" alt="">
+          <img src="Images/<?php echo $ExistingImage; ?>" class="block img-fluid mb-3" alt="">
           <div class="">
             <?php echo $ExistingBio; ?>  </div>
 

@@ -6,7 +6,7 @@ Confirm_Login(); ?>
 <?php
 if(isset($_POST["Submit"])){
   $PostTitle = $_POST["PostTitle"];
-  $Category  = $_POST["id"];
+  $Category  = $_POST["Category"];
   $Department  = $_POST["Department"];
   $Image     = $_FILES["Image"]["name"];
   $Target    = "Uploads/".basename($_FILES["Image"]["name"]);
@@ -30,7 +30,7 @@ if(isset($_POST["Submit"])){
   }else{
     // Query to insert Post in DB When everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO post(Datetime,Title,Category,Author,Image,Description,Department,File)";
+    $sql = "INSERT INTO Posts(Datetime,Title,CategoryID,Author,Image,Description,DepartmentID,File)";
     $sql .= "VALUES(:dateTime,:postTitle,:categoryName,:adminName,:imageName,:postDescription,:dep,:fileName)";
     $stmt = $ConnectingDB->prepare($sql);
     $stmt->bindValue(':dateTime',$DateTime);
@@ -135,37 +135,37 @@ if(isset($_POST["Submit"])){
                <input class="form-control" type="text" name="PostTitle" id="title" placeholder="Type title here" value="">
             </div>
             <div class="form-group">
-              <label for="CategoryTitle"> <span class="FieldInfo"> Chose Categroy </span></label>
+              <label for="CategoryTitle"> <span class="FieldInfo"> Choose Category </span></label>
                <select class="form-control" id="CategoryTitle"  name="Category">
-                 <?php
-                 //Fetchinng all the categories from category table
-                 global $ConnectingDB;
-                 $sql = "SELECT CategoryID,Category FROM Category";
-                 $stmt = $ConnectingDB->query($sql);
-                 while ($DataRows = $stmt->fetch()) {
-                   $Id = $DataRows["id"];
-                   $CategoryName = $DataRows["Category"];
-                  ?>
-                  <option> <?php echo $CategoryName; ?></option>
-                  <?php } ?>
-               </select>
+                 <option value=""></option>
+				<option value="1">Other</option>
+				<option value="2">University Road Safety</option>
+                <option value="3">Bus Timetable</option>
+                <option value="4">Library</option>
+                   <option value="5">University Food</option>
+                   <option value="9">Technology</option>
+                   <option value="10">Entertainment</option>
+                   <option value="11">Sports</option>
+                   <option value="12">Gaming</option>
+                   <option value="13">Social</option>
+                  <option value="16">Rules & Regulations</option>
+			</select>
             </div>
               
                <div class="form-group">
-              <label for="DepartmentTitle"> <span class="FieldInfo"> Department </span></label>
+              <label for="DepartmentTitle"> <span class="FieldInfo"> Choose Department </span></label>
                <select class="form-control" id="DepartmentTitle"  name="Department">
-                 <?php
-                 //Fetchinng all the categories from category table
-                 global $ConnectingDB;
-                 $sql = "SELECT DepartmentID,Department FROM Department";
-                 $stmt = $ConnectingDB->query($sql);
-                 while ($DataRows = $stmt->fetch()) {
-                   $Id = $DataRows["id"];
-                   $DepartmentName = $DataRows["Department"];
-                  ?>
-                  <option> <?php echo $DepartmentName; ?></option>
-                  <?php } ?>
-               </select>
+                 <option value=""></option>
+				<option value="1">Computing</option>
+				<option value="2">Art</option>
+                <option value="3">Media</option>
+                <option value="4">Nursing</option>
+                   <option value="7">Music</option>
+                   <option value="8">Science</option>
+                   <option value="9">History</option>
+                   <option value="10">Law</option>
+                  
+			</select>
             </div>
               <label for="title"> <span class="FieldInfo"> Upload an Image </span></label>
             <div class="form-group">

@@ -10,7 +10,7 @@ if(isset($_POST["Submit"])){
   $Image     = $_FILES["Image"]["name"];
   $Target    = "Uploads/".basename($_FILES["Image"]["name"]);
   $PostText  = $_POST["PostDescription"];
-  $Admin     = "v";
+    $Admin = $_SESSION["UserName"];
   date_default_timezone_set("Asia/Karachi");
   $CurrentTime = time();
   $DateTime    = strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
@@ -29,11 +29,11 @@ if(isset($_POST["Submit"])){
     global $ConnectingDB;
     if (!empty($_FILES["Image"]["name"])) {
       $sql = "UPDATE Posts
-              SET Title='$PostTitle', Category='$Category', Image='$Image', Description='$PostText'
+              SET Title='$PostTitle', CategoryID='$Category', Image='$Image', Description='$PostText'
               WHERE PostID='$SarchQueryParameter'";
     }else {
       $sql = "UPDATE Posts
-              SET Title='$PostTitle', Category='$Category', Post='$PostText'
+              SET Title='$PostTitle', CategoryID='$Category', Post='$PostText'
               WHERE PostID='$SarchQueryParameter'";
     }
   
@@ -129,6 +129,7 @@ if(isset($_POST["Submit"])){
        while ($DataRows=$stmt->fetch()) {
          $TitleToBeUpdated    = $DataRows['Title'];
          $CategoryToBeUpdated = $DataRows['CategoryID'];
+        
          $ImageToBeUpdated    = $DataRows['Image'];
          $PostToBeUpdated     = $DataRows['Description'];
          // code...
@@ -147,18 +148,23 @@ if(isset($_POST["Submit"])){
               <br>
               <label for="CategoryTitle"> <span class="FieldInfo"> Choose Category </span></label>
                <select class="form-control" id="CategoryTitle"  name="Category">
-                 <?php
-                 //Fetchinng all the categories from category table
-                 global $ConnectingDB;
-                 $sql  = "SELECT CategoryID,Category FROM Category";
-                 $stmt = $ConnectingDB->query($sql);
-                 while ($DataRows = $stmt->fetch()) {
-                   $Id            = $DataRows["CategoryID"];
-                   $CategoryName  = $DataRows["Category"];
-                  ?>
-                  <option> <?php echo $CategoryName; ?></option>
-                  <?php } ?>
-               </select>
+              
+				<option value=""></option>
+				<option value="1">Other</option>
+				<option value="2">University Road Safety</option>
+                <option value="3">Bus Timetable</option>
+                <option value="4">Library</option>
+                   <option value="5">University Food</option>
+                   <option value="9">Technology</option>
+                   <option value="10">Entertainment</option>
+                   <option value="11">Sports</option>
+                   <option value="12">Gaming</option>
+                   <option value="13">Social</option>
+                  <option value="16">Rules & Regulations</option>
+			</select>
+                </div> 
+                <div>
+                 
             </div>
             <div class="form=group mb-1">
               <span class="FieldInfo">Existing Image: </span>
@@ -176,7 +182,7 @@ if(isset($_POST["Submit"])){
             </div>
             <div class="row">
               <div class="col-lg-6 mb-2">
-                <a href="Dashboard.php" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
+                <a href="Posts.php" class="btn btn-warning btn-block"><i class="fas fa-arrow-left"></i> Back To Dashboard</a>
               </div>
               <div class="col-lg-6 mb-2">
                 <button type="submit" name="Submit" class="btn btn-success btn-block">

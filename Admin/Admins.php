@@ -1,44 +1,52 @@
 <?php require_once("Includes/DB.php"); ?>
 <?php require_once("Includes/Functions.php"); ?>
 <?php require_once("Includes/Sessions.php"); ?>
+<?php $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];?>
 <?php
-$_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
- Confirm_Login(); ?>
+Confirm_Login(); ?>
 <?php
 if(isset($_POST["Submit"])){
+     $Id        = $_POST["StaffID"];
   $Username        = $_POST["Username"];
   $Name            = $_POST["Name"];
   $Admin = $_SESSION["UserName"];
-  $Role = $_POST["Role"];    
+  $Email = $_POST["Email"];
+  $Role = $_POST["Role"];
+  $Password = $_POST["Password"]; 
+  $ConfirmPassword = $_POST["ConfirmPassword"];
  
-
-  if(empty($Username)){
+if(empty($Username)||empty($Password)||empty($ConfirmPassword)){
     $_SESSION["ErrorMessage"]= "All fields must be filled out";
-    Redirect_to("Admintest.php");
-  }elseif (strlen($Username)<3) {
-    $_SESSION["ErrorMessage"]= "Category title should be greater than 2 characters";
-    Redirect_to("Admintest.php");
-  }elseif (strlen($Username)>49) {
-    $_SESSION["ErrorMessage"]= "Category title should be less than than 50 characters";
-    Redirect_to("Admintest.php");
+    Redirect_to("Admins.php");
+  }elseif (strlen($Password)<4) {
+    $_SESSION["ErrorMessage"]= "Password should be greater than 3 characters";
+    Redirect_to("Admins.php");
+  }elseif ($Password !== $ConfirmPassword) {
+    $_SESSION["ErrorMessage"]= "Password and Confirm Password should match";
+    Redirect_to("Admins.php");
+  }elseif (CheckUserNameExistsOrNot($Username)) {
+    $_SESSION["ErrorMessage"]= "Username Exists. Try Another One! ";
+    Redirect_to("Admins.php");
   }else{
     // Query to insert category in DB When everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO Staff(Name,Username,Added_By,RoleID)";
-    $sql .= "VALUES(:username,:name,:adminName,:role)";
+    $sql = "INSERT INTO Staff(Username,Name,Email,Added_By,RoleID,Password)";
+    $sql .= "VALUES(:username,:name,:email,:adminName,:role,:password)";
     $stmt = $ConnectingDB->prepare($sql);
     $stmt->bindValue(':username',$Username);
     $stmt->bindValue(':name',$Name);
+      $stmt->bindValue(':email',$Email);
     $stmt->bindValue(':adminName',$Admin);
     $stmt->bindValue(':role',$Role);
+      $stmt->bindValue(':password',$Password);
     $Execute=$stmt->execute();
 
     if($Execute){
       $_SESSION["SuccessMessage"]="Member has been created Successfully";
-      Redirect_to("Admintest.php");
+      Redirect_to("Admins.php");
     }else {
       $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !";
-      Redirect_to("Admintest.php");
+      Redirect_to("Admins.php");
     }
   }
 } //Ending of Submit Button If-Condition
@@ -122,7 +130,7 @@ if(isset($_POST["Submit"])){
        echo ErrorMessage();
        echo SuccessMessage();
        ?>
-      <form class="" action="Admintest.php" method="post">
+      <form class="" action="Admins.php" method="post">
         <div class="card bg-secondary text-light mb-3">
           <div class="card-header">
             <h1>Add New Member</h1>
@@ -139,6 +147,12 @@ if(isset($_POST["Submit"])){
                <input class="form-control" type="text" name="Name" id="Name" placeholder="Please Enter Name of new member" value="">
                       </div>
                 
+                
+                  <div class="form-group">
+              <label for="Email"> <span class="FieldInfo"> Email: </span></label>
+               <input class="form-control" type="email" name="Email" id="Email" placeholder="Please Enter Email Address of new member" value="">
+                      </div>
+                
                 <div class="form-group">
 			<label><span class="FieldInfo">Role</span></label>
 			<select name="Role" id="Role" >
@@ -150,6 +164,15 @@ if(isset($_POST["Submit"])){
 			</select>
                 </div> 
                 
+                   <div class="form-group">
+              <label for="Password"> <span class="FieldInfo"> Password: </span></label>
+               <input class="form-control" type="password" name="Password" id="Password" placeholder="Enter Password" value="">
+                      </div>
+                    
+                <div class="form-group">
+              <label for="ConfirmPassword"> <span class="FieldInfo"> Password: </span></label>
+               <input class="form-control" type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="Re-Enter Password" value="">
+                      </div>
                 
                 
             </div>
@@ -184,7 +207,7 @@ if(isset($_POST["Submit"])){
         </thead>
       <?php
       global $ConnectingDB;
-      $sql = "SELECT Staff.Username, Staff.Name, Staff.Added_By, Staff.Date_Joined, Staff.Email, Staff.Last_Logged, Roles.Roles
+      $sql = "SELECT Staff.StaffID, Staff.Username, Staff.Name, Staff.Added_By, Staff.Date_Joined, Staff.Email, Staff.Last_Logged, Roles.Roles
 FROM Staff
 Left JOIN Roles
 ON Staff.RoleID = Roles.RoleID
@@ -200,6 +223,7 @@ Order by Date_Joined DESC";
             $UserDate = $DataRows["Date_Joined"];
             $Lastl = $DataRows["Last_Logged"];
             $Role = $DataRows["Roles"];
+          $Id = $DataRows["StaffID"];
        
               
         
@@ -216,8 +240,8 @@ Order by Date_Joined DESC";
               <td><?php echo htmlentities($Lastl); ?></td>
             <td><?php echo htmlentities($Role); ?></td>
    
-           <td>  <a href="EditMembers.php?id=<?php echo $Id; ?>"><span class="btn btn-warning">Edit</span></a></td>
-          <td> <a href="DeleteCategory.php?id=<?php echo $CategoryId;?>" class="btn btn-danger">Delete</a>  </td>
+           <td>  <a href="update.php?id=<?php echo $Id; ?>"><span class="btn btn-warning">Edit</span></a></td>
+          <td> <a href="DeleteMembers.php?id=<?php echo $Id;?>" class="btn btn-danger">Delete</a>  </td>
 
       </tbody>
       <?php } ?>

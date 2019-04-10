@@ -5,15 +5,15 @@
 if(isset($_GET["id"])){
   $SearchQueryParameter = $_GET["id"];
   global $ConnectingDB;
-  $sql = "DELETE FROM Comments WHERE CommentID='$SearchQueryParameter'";
+  $sql = "DELETE FROM Staff WHERE StaffID='$SearchQueryParameter'";
   $Execute = $ConnectingDB->query($sql);
   if ($Execute) {
-    $_SESSION["SuccessMessage"]="Comment Deleted Successfully ! ";
-    Redirect_to("Comments.php");
+    $_SESSION["SuccessMessage"]="Member Deleted Successfully ! ";
+    Redirect_to("Admins.php");
     // code...
   }else {
     $_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";
-    Redirect_to("Comments.php");
+    Redirect_to("Admins.php");
   }
 }
 ?>

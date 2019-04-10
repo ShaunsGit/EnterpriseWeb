@@ -4,45 +4,51 @@
 <?php $_SESSION["TrackingURL"]=$_SERVER["PHP_SELF"];
 Confirm_Login(); ?>
 <?php
+// Fetching the existing Admin Data Start
+$AdminId = $_SESSION["UserId"];
+global $ConnectingDB;
+$sql  = "SELECT * FROM Staff WHERE StaffID='$AdminId'";
+$stmt =$ConnectingDB->query($sql);
+while ($DataRows = $stmt->fetch()) {
+  $ExistingName     = $DataRows['Name'];
+  $ExistingUsername = $DataRows['Username'];
+  $ExistingHeadline = $DataRows['Headline'];
+  $ExistingBio      = $DataRows['Bio'];
+  $ExistingImage    = $DataRows['Image'];
+}
+// Fetching the existing Admin Data End
 if(isset($_POST["Submit"])){
-  $PostTitle = $_POST["PostTitle"];
+  $AName     = $_POST["Name"];
+  $AHeadline = $_POST["Headline"];
+  $ABio      = $_POST["Bio"];
   $Image     = $_FILES["Image"]["name"];
   $Target    = "Images/".basename($_FILES["Image"]["name"]);
-  $File     = $_FILES["File"]["name"];
-  $Target    = "Uploads/".basename($_FILES["File"]["name"]);
-  $PostText  = $_POST["PostDescription"];
-  
-  if(empty($PostTitle)){
-    $_SESSION["ErrorMessage"]= "Title Cant be empty";
-    Redirect_to("AddNewPost.php");
-  }elseif (strlen($PostTitle)<5) {
-    $_SESSION["ErrorMessage"]= "Post Title should be greater than 5 characters";
-    Redirect_to("AddNewPost.php");
-  }elseif (strlen($PostText)>9999) {
-    $_SESSION["ErrorMessage"]= "Post Description should be less than than 1000 characters";
-    Redirect_to("AddNewPost.php");
+if (strlen($AHeadline)>30) {
+    $_SESSION["ErrorMessage"] = "Headline Should be less than 30 characters";
+    Redirect_to("MyProfile.php");
+  }elseif (strlen($ABio)>500) {
+    $_SESSION["ErrorMessage"] = "Bio should be less than than 500 characters";
+    Redirect_to("MyProfile.php");
   }else{
-    // Query to insert Post in DB When everything is fine
+    // Query to Update Admin Data in DB When everything is fine
     global $ConnectingDB;
-    $sql = "INSERT INTO Posts(Title,Image,Description,File)";
-    $sql .= "VALUES(:postTitle,:imageName,:postDescription,:fileName)";
-    $stmt = $ConnectingDB->prepare($sql);
-   
-    $stmt->bindValue(':postTitle',$PostTitle);
-    $stmt->bindValue(':imageName',$Image);
-    $stmt->bindValue(':postDescription',$PostText);
-    $stmt->bindValue(':fileName',$File);
-  
-     
-    $Execute=$stmt->execute();
+    if (!empty($_FILES["Image"]["name"])) {
+      $sql = "UPDATE Staff
+              SET Name='$AName', Headline='$AHeadline', Bio='$ABio', Image='$Image'
+              WHERE StaffID='$AdminId'";
+    }else {
+      $sql = "UPDATE Staff
+              SET Name='$AName', Headline='$AHeadline', Bio='$ABio'
+              WHERE StaffID='$AdminId'";
+    }
+    $Execute= $ConnectingDB->query($sql);
     move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
-    move_uploaded_file($_FILES["File"]["tmp_name"],$Target);
     if($Execute){
-      $_SESSION["SuccessMessage"]="Post with id : " .$ConnectingDB->lastInsertId()." added Successfully";
-      Redirect_to("AddNewPost1.php");
+      $_SESSION["SuccessMessage"]="Details Updated Successfully";
+      Redirect_to("MyProfile.php");
     }else {
       $_SESSION["ErrorMessage"]= "Something went wrong. Try Again !";
-      Redirect_to("AddNewPost1.php");
+      Redirect_to("MyProfile.php");
     }
   }
 } //Ending of Submit Button If-Condition
@@ -56,14 +62,14 @@ if(isset($_POST["Submit"])){
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="Css/Styles.css">
-  <title>Add New Post</title>
+  <title>My Profile</title>
 </head>
 <body>
   <!-- NAVBAR -->
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="#" class="navbar-brand"> GucciGang Enterprise</a>
+      <a href="/" class="navbar-brand"> GucciGang Enterprise</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -81,14 +87,21 @@ if(isset($_POST["Submit"])){
         <li class="nav-item">
           <a href="Categories.php" class="nav-link">Categories</a>
         </li>
+           <li class="nav-item">
+          <a href="Departments.php" class="nav-link">Departments</a>
+        </li>
         <li class="nav-item">
-          <a href="Admins.php" class="nav-link">Manage Admins</a>
+          <a href="Admins.php" class="nav-link">Members</a>
         </li>
         <li class="nav-item">
           <a href="Comments.php" class="nav-link">Comments</a>
         </li>
+         <li class="nav-item">
+          <a href="Statistics.php" class="nav-link">Statistics</a>
+        </li>  
+        
         <li class="nav-item">
-          <a href="Blog.php?page=1" class="nav-link" target="_blank">View Post</a>
+          <a href="Blog.php?page=1" class="nav-link" target="_blank">View Ideas</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -105,7 +118,8 @@ if(isset($_POST["Submit"])){
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          <h1><i class="fas fa-edit" style="color:#27aae1;"></i> Add New Post</h1>
+          <h1><i class="fas fa-user text-success mr-2"></i>@<?php echo $ExistingUsername; ?></h1>
+          <small><?php echo $ExistingHeadline; ?></small>
           </div>
         </div>
       </div>
@@ -115,37 +129,51 @@ if(isset($_POST["Submit"])){
      <!-- Main Area -->
 <section class="container py-2 mb-4">
   <div class="row">
-    <div class="offset-lg-1 col-lg-10" style="min-height:400px;">
+    <!-- Left Area -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header bg-dark text-light">
+          <h3> <?php echo $ExistingName; ?></h3>
+        </div>
+        <div class="card-body">
+          <img src="Images/<?php echo $ExistingImage; ?>" class="block img-fluid mb-3" alt="">
+          <div class="">
+            <?php echo $ExistingBio; ?>  </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Righ Area -->
+    <div class="col-md-9" style="min-height:400px;">
       <?php
        echo ErrorMessage();
        echo SuccessMessage();
        ?>
-      <form class="" action="AddNewPost1.php" method="post" enctype="multipart/form-data">
-        <div class="card bg-secondary text-light mb-3">
-          <div class="card-body bg-dark">
+      <form class="" action="MyProfile.php" method="post" enctype="multipart/form-data">
+        <div class="card bg-dark text-light">
+          <div class="card-header bg-secondary text-light">
+            <h4>Edit Profile</h4>
+          </div>
+          <div class="card-body">
             <div class="form-group">
-              <label for="title"> <span class="FieldInfo"> Post Title: </span></label>
-               <input class="form-control" type="text" name="PostTitle" id="title" placeholder="Type title here" value="">
+               <input class="form-control" type="text" name="Name" id="title" placeholder="Your name" value="">
             </div>
-       
-               
-              <label for="title"> <span class="FieldInfo"> Upload an Image </span></label>
+            <div class="form-group">
+               <input class="form-control" type="text" id="title" placeholder="Headline" name="Headline">
+               <small class="text"> Add QA Manager of Department or any Staff Details here </small>
+               <span class="text-danger">Not more than 30 characters</span>
+            </div>
+            <div class="form-group">
+              <textarea  placeholder="Bio" class="form-control" id="Post" name="Bio" rows="8" cols="80"></textarea>
+            </div>
+
             <div class="form-group">
               <div class="custom-file">
               <input class="custom-file-input" type="File" name="Image" id="imageSelect" value="">
-              <label for="imageSelect" class="custom-file-label">Upload an Image </label>
+              <label for="imageSelect" class="custom-file-label">Select Image </label>
               </div>
-            </div>
-               <label for="title"> <span class="FieldInfo"> Upload a File </span></label>
-                  <div class="form-group">
-              <div class="custom-file">
-              <input class="custom-file-input" type="File" name="File" id="fileSelect" value="">
-              <label for="fileSelect" class="custom-file-label">Upload a File (Supported .zip .pdf .doc) </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="Post"> <span class="FieldInfo"> Post: </span></label>
-              <textarea class="form-control" id="Post" name="PostDescription" rows="8" cols="80"></textarea>
             </div>
             <div class="row">
               <div class="col-lg-6 mb-2">
@@ -169,7 +197,7 @@ if(isset($_POST["Submit"])){
 
     <!-- End Main Area -->
     <!-- FOOTER -->
-  <?php include("footer-global.php"); ?>
+   <?php include("footer-global.php"); ?>
     <!-- FOOTER END-->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

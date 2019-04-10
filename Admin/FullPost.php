@@ -67,7 +67,7 @@ if(isset($_POST["Submit"])){
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="#" class="navbar-brand"> GucciGang Enterprise</a>
+      <a href="../Home.php" class="navbar-brand"> GucciGang Enterprise</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -128,7 +128,7 @@ if(isset($_POST["Submit"])){
               $_SESSION["ErrorMessage"]="Bad Request !";
               Redirect_to("Blog.php?page=1");
             }
-            $sql  = "SELECT Posts.Title, Posts.Description, Posts.Up_Vote, Posts.Down_Vote, Posts.Date_Posted, Category.Category, Department.Department, Staff.Name
+            $sql  = "SELECT Posts.Title, Posts.Description, Posts.Up_Vote, Posts.Down_Vote, Posts.Date_Posted, Posts.Image, Posts.File, Category.Category, Department.Department, Staff.Name
 FROM Posts 
 left JOIN Category
 ON Posts.CategoryID =Category.CategoryID
@@ -156,6 +156,7 @@ WHERE PostID= '$PostIdFromURL'";
             $Likes           = $DataRows["Up_Vote"];
             $Dislikes        = $DataRows["Down_Vote"];
             $Dept            = $DataRows["Department"];
+              $File            = $DataRows["File"];
           ?>
           <div class="card">
             <img src="Uploads/<?php echo htmlentities($Image); ?>" style="max-height:450px;" class="img-fluid card-img-top" />
@@ -180,11 +181,16 @@ WHERE PostID= '$PostIdFromURL'";
            
                 
                 <p>Likes   <td><span class="badge badge-success"><?php echo htmlentities($Likes); ?></span>
-                 Dislikes   <td><span class="badge badge-danger"><?php echo htmlentities($Dislikes); ?></span></p>
+                 Dislikes   <td><span class="badge badge-danger"><?php echo htmlentities($Dislikes); ?></span>
+                   <p>Attachments   <td><span class="badge badge-success"><?php echo htmlentities($File); ?></span>
+                  </p>
+                   <td> <?php echo "<a href='Uploads/".$File."'>Download</a> "; ?> </td>
+                   
             <hr>
               <p class="card-text">
                 <?php echo nl2br($PostDescription); ?></p>
             </div>
+                
           </div>
           <br>
           <?php   } ?>

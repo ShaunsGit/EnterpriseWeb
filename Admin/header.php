@@ -22,7 +22,7 @@ Confirm_Login(); ?>
   <div style="height:10px; background:#27aae1;"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a href="/" class="navbar-brand"> GucciGang Enterprise</a>
+      <a href="../Home.php" class="navbar-brand"> GucciGang Enterprise</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -50,13 +50,13 @@ Confirm_Login(); ?>
           <a href="Admins.php" class="nav-link">Members</a>
         </li>
         <li class="nav-item">
-          <a href="Comments.php" class="nav-link"> <i class="far fa-comments"></i> Comments</a>
+          <a href="Comments.php" class="nav-link">Comments</a>
         </li>
            <li class="nav-item">
           <a href="Statistics.php" class="nav-link">Statistics</a>
         </li>
         <li class="nav-item">
-          <a href="Blog.php?page=1" class="nav-link" target="_blank">View Post</a>
+          <a href="Blog.php?page=1" class="nav-link" target="_blank">View Ideas</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

@@ -19,87 +19,55 @@
            echo ErrorMessage();
            echo SuccessMessage();
            ?>
-          <h2>Un-Approved Comments</h2>
+          <h2>View All Comments</h2>
           <table class="table table-striped table-hover">
             <thead class="thead-dark">
               <tr>
-                <th>No. </th>
-               
+                
+                 <th>Name </th>
+                  <th>Post Title </th>
                 <th>Comment</th>
-                <th>Aprove</th>
+              
                 <th>Action</th>
                 <th>Details</th>
               </tr>
             </thead>
           <?php
           global $ConnectingDB;
-          $sql = "SELECT * FROM Comments";
+          $sql = "SELECT Comments.CommentID, Comments.Text, Comments.PostID, Staff.Name, Posts.Title
+FROM Comments 
+left JOIN Staff
+ON Comments.StaffID =Staff.StaffID
+left Join Posts
+ON Comments.PostID =Posts.PostID
+";
           $Execute =$ConnectingDB->query($sql);
           $SrNo = 0;
           while ($DataRows=$Execute->fetch()) {
             $CommentId = $DataRows["CommentID"];
-            
+               $Name = $DataRows["Name"];
+              $Title = $DataRows["Title"];
+       
             $CommentContent= $DataRows["Text"];
             $CommentPostId = $DataRows["PostID"];
             $SrNo++;
           ?>
           <tbody>
             <tr>
-              <td><?php echo htmlentities($SrNo); ?></td>
              
+             <td><?php echo htmlentities($Name); ?></td>
+                <td><?php echo htmlentities($Title); ?></td>
+              
            
               <td><?php echo htmlentities($CommentContent); ?></td>
-              <td> <a href="ApproveComments.php?id=<?php echo $CommentId;?>" class="btn btn-success">Approve</a>  </td>
+        
               <td> <a href="DeleteComments.php?id=<?php echo $CommentId;?>" class="btn btn-danger">Delete</a>  </td>
               <td style="min-width:140px;"> <a class="btn btn-primary"href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blank">Live Preview</a> </td>
             </tr>
           </tbody>
           <?php } ?>
           </table>
-          <h2>Approved Comments</h2>
-          <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-              <tr>
-                <th>No. </th>
-                
-                <th>Comment</th>
           
-                <th>Revert</th>
-                <th>Action</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-          <?php
-          global $ConnectingDB;
-          $sql = "SELECT * FROM Comment WHERE status='ON' ORDER BY CommentID desc";
-          $Execute =$ConnectingDB->query($sql);
-          $SrNo = 0;
-          while ($DataRows=$Execute->fetch()) {
-            $CommentId         = $DataRows["CommentID"];
-           
-         
-          
-            $CommentContent    = $DataRows["Text"];
-            $CommentPostId     = $DataRows["PostID"];
-            $SrNo++;
-          ?>
-          <tbody>
-            <tr>
-              <td><?php echo htmlentities($SrNo); ?></td>
-              
-             
-              <td><?php echo htmlentities($CommentContent); ?></td>
-              
-              <td style="min-width:140px;"> <a href="DisApproveComments.php?id=<?php echo $CommentId;?>" class="btn btn-warning">Dis-Approve</a>  </td>
-              <td> <a href="DeleteComments.php?id=<?php echo $CommentId;?>" class="btn btn-danger">Delete</a>  </td>
-              <td style="min-width:140px;"> <a class="btn btn-primary"href="FullPost.php?id=<?php echo $CommentPostId; ?>" target="_blank">Live Preview</a> </td>
-            </tr>
-          </tbody>
-          <?php } ?>
-          </table>
-        </div>
-      </div>
-    </section>
    <!--  Main Area End -->
     <!-- FOOTER -->
   <?php include("footer-global.php"); ?>

@@ -22,7 +22,7 @@
             </a>
           </div>
           <div class="col-lg-3 mb-2">
-            <a href="Statistics-No-Post-Department-Export.php" class="btn btn-success btn-block">
+            <a href="Statistics-No-Post-Category-Export.php" class="btn btn-success btn-block">
               <i class="fas fa-file-csv"></i> Download CSV
             </a>
           </div>
