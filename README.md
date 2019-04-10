@@ -1,7 +1,12 @@
 # GucciGang
 Enterprise Web Software Development
 Functionality – Whats working
+-Merged with front end users can vote
+-Login Functionality
+-Email Functionality
+-
 
+-Admin panel merged to front end
 -	Admin can view number of Post, Categories, Departments, Members and Comments
 -	At a glance admin Can view top rated post along with the posters name, ratings and description from the dashboard
 -	Admin can contribute and add a post with images/files within any category or department
